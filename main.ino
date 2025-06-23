@@ -13,6 +13,9 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 #define DHTPIN 25 // DHT11 DATA
 #define DHTTYPE DHT11
 #define MQPIN 35 // MQ135 conectado
+// Motor Modulo
+#define MOTOR_PUSH_PIN 34 // Input, 10 sec trigger
+#define MOTOR_REL_PIN 26  // Relay para motor
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -28,6 +31,11 @@ void setup()
   display.setCursor(0, 0);
   display.println("Hello ESP32!");
   display.display();
+
+  // Modulo Motor
+  pinMode(MOTOR_REL_PIN, OUTPUT);
+  digitalWrite(MOTOR_REL_PIN, HIGH);     // Relay OFF if active-low
+  pinMode(MOTOR_PUSH_PIN, INPUT_PULLUP); // Internal pull-up resistor
 
   delay(1500);
 }
@@ -94,6 +102,24 @@ void loop()
 
   display.print("Aire: ");
   display.println(calidad);
+
+  // # Motor
+  // Button is active LOW (pressed = LOW)
+  if (digitalRead(MOTOR_PUSH_PIN) == LOW && !outputActive)
+  {
+    outputStartTime = millis();
+    display.println("on");
+    outputActive = true;
+    digitalWrite(MOTOR_REL_PIN, HIGH); // Turn ON output
+  }
+
+  // Check if 10 seconds passed since activation
+  if (outputActive && (millis() - outputStartTime >= 10000))
+  {
+    digitalWrite(MOTOR_REL_PIN, LOW); // Turn OFF output
+    outputActive = false;
+  }
+
   display.display();
 
   delay(2000);

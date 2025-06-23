@@ -26,7 +26,7 @@ cd ~/Arduino/hardware/espressif
 git clone https://github.com/espressif/arduino-esp32.git esp32
 cd esp32
 git submodule update --init --recursive # no tiene? creoq no
-python3 tools/get.py
+python3 tools/get.py # > 3.11
 ```
 
 ### Librerias 
