@@ -33,7 +33,6 @@ void handleRoot()
 
 void setupSpot()
 {
-    Serial.begin(115200);
     Serial.println("Starting AP...");
 
     // Start Access Point

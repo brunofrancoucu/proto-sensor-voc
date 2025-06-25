@@ -5,7 +5,7 @@
 #include <Adafruit_GFX.h>
 // Internal
 #include "State.h"
-#include "Vent.h"
+// #include "Vent.h"
 #include "Display.h"
 #include "Sensors.h"
 #include "Spot.h"
@@ -17,7 +17,7 @@ void setup()
   // Initialize components
   setupDisplay(33, 32);
   setupSensors(35, 25);
-  setupVent(26, 21);
+  // setupVent(26, 21);
   setupSpot();
 
   delay(1500);
@@ -28,7 +28,7 @@ void loop()
   // Loop components
   runDisplay();
   runSensors();
-  runVent();
+  // runVent();
   runSpot();
 
   // display.display();
