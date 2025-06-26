@@ -37,17 +37,14 @@ void runVent()
         Serial.println("10 seconds passed, active set to false");
     }
 
-    // (Optional) Do something based on `active`
     if (active)
     {
-        // display.print("Motor ON");
-        // display.println(" (10 sec)");
+        Serial.print("Motor ON");
         digitalWrite(relPin, HIGH); // Turn on relay (active-low)
     }
     else
     {
-        // display.print("Motor OFF");
+        Serial.print("Motor OFF");
         digitalWrite(relPin, LOW); // Turn off relay (active-low)
-                                   // Your logic here, e.g., turn on LED or relay
     }
 }

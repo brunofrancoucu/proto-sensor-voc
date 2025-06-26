@@ -14,7 +14,7 @@ const byte DNS_PORT = 53;
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html>
-<head><title>Ni una fruta de menos, ni una fruta de mas</title></head>
+<head><title>Ni una fruta de mas</title></head>
 <body>
 <h2>Muestreo del aire:</h2>
 <p>Temperature: <span id="temp">--</span> °C</p>

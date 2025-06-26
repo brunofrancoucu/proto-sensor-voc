@@ -27,11 +27,17 @@ void loop()
 {
   // Loop components
   runDisplay();
-  runSensors();
+  // This wastes CPU, stresses your ESP32, crashes slower sensors like DHT11, and can trigger watchdog resets.
+  static unsigned long last = 0;
+  if (millis() - last >= 2000)
+  {                  // if 2s have passed
+    last = millis(); // update the timer
+    runSensors();    // read sensors only now
+  }
   // runVent();
   runSpot();
 
   // display.display();
 
-  delay(2000);
+  delay(1000);
 }
