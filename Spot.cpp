@@ -3,42 +3,53 @@
 #include <DNSServer.h>
 #include "State.h"
 
-const char *ssid = "BOMBA_HOTSPOT";
-const char *password = "12345678";
+// const char *ssid = "BOMBA_HOTSPOT";
+// const char *password = "12345678";
 
 WebServer server(80);
 DNSServer dnsServer;
 
 const byte DNS_PORT = 53;
 
-const char index_html[] PROGMEM = R"rawliteral(
-<!DOCTYPE html>
-<html>
-<head><title>Ni una fruta de mas</title></head>
-<body>
-<h2>Muestreo del aire:</h2>
-<p>Temperature: <span id="temp">--</span> °C</p>
-<p>Humidity: <span id="hum">--</span> %</p>
-<p>Air Quality: <span id="air">--</span> ppm</p>
+// const char index_html[] PROGMEM = R"rawliteral(
+// <!DOCTYPE html>
+// <html>
+// <head><title>Ni una fruta de mas</title></head>
+// <body>
+// <h2>Muestreo del aire:</h2>
+// <p>Temperature: <span id="temp">--</span> °C</p>
+// <p>Humidity: <span id="hum">--</span> %</p>
+// <p>Air Quality: <span id="air">--</span> ppm</p>
 
-<script>
-function updateData() {
-  fetch('/data')
-    .then(r => r.json())
-    .then(data => {
-      document.getElementById('temp').textContent = data.temperature;
-      document.getElementById('hum').textContent = data.humidity;
-      document.getElementById('air').textContent = data.air;
-    });
-}
-setInterval(updateData, 2000);  // update every 2s
-updateData(); // also call it once on load
-</script>
-<p></p>
-<span>Equipo Bomba</span>
-</body>
-</html>
-)rawliteral";
+// <script>
+// function updateData() {
+//   fetch('/data')
+//     .then(r => r.json())
+//     .then(data => {
+//       document.getElementById('temp').textContent = data.temperature;
+//       document.getElementById('hum').textContent = data.humidity;
+//       document.getElementById('air').textContent = data.air;
+//     });
+// }
+// setInterval(updateData, 2000);  // update every 2s
+// updateData(); // also call it once on load
+// </script>
+// <p></p>
+// <span>Equipo Bomba</span>
+// </body>
+// </html>
+// )rawliteral";
+
+String ssid = "";
+String password = "";
+
+const char index_html[] PROGMEM = R"rawliteral(
+    <form action="/connect" method="POST">
+      WiFi SSID: <input type="text" name="ssid"><br>
+      Password: <input type="password" name="password"><br>
+      <input type="submit" value="Connect">
+    </form>
+  )rawliteral";
 
 // /
 void handleRoot()
@@ -65,6 +76,18 @@ void handleData()
   server.send(200, "application/json", json);
 }
 
+void handleConnect()
+{
+  ssid = server.arg("ssid");
+  password = server.arg("password");
+
+  server.send(200, "text/html", "Connecting to WiFi...");
+
+  WiFi.begin(ssid.c_str(), password.c_str());
+  delay(1000);
+  // Optional: store to EEPROM or SPIFFS
+}
+
 void setupSpot()
 {
   Serial.println("Starting AP...");
@@ -80,6 +103,7 @@ void setupSpot()
   // Handle any URL as "/"
   server.onNotFound(handleRoot);
   server.on("/", handleRoot);
+  server.on("/connect", HTTP_POST, handleConnect);
   server.on("/data", handleData);
 
   server.begin();
