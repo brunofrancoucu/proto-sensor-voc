@@ -12,8 +12,8 @@
 
 ### Drivers
 
-- [Silicon](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads)
-- [Spark](https://sparks.gogo.co.nz/ch340.html)
+- CP2102 / 04, by silicon labs, drivers: [CP210x VCP Drivers](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+- CH9102 (micro) / CH340 (usb-c), by WCH, drivers: [Spark](https://sparks.gogo.co.nz/ch340.html)
 
 ### Core FQBN
 
@@ -25,7 +25,7 @@
 arduino-cli core install esp32:esp32
 
 # o
-
+    
 mkdir -p ~/Arduino/hardware/espressif
 cd ~/Arduino/hardware/espressif
 git clone https://github.com/espressif/arduino-esp32.git esp32
@@ -50,6 +50,7 @@ arduino-cli lib install "Adafruit Unified Sensor"
 # reemplazar puerto y core
 arduino-cli compile --fqbn espressif:esp32:esp32 .
 arduino-cli upload -p /dev/ttyAMA0 --fqbn espressif:esp32:esp32 .
+arduino-cli monitor -p /dev/cu.wchusbserial5A770373911 --fqbn espressif:esp32:esp32 -c baudrate=115200
 ```
 
 ## Arduino pasos (no cloud ide)
