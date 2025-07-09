@@ -10,6 +10,11 @@
 
 ## Instalacion
 
+### Drivers
+
+- [Silicon](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads)
+- [Spark](https://sparks.gogo.co.nz/ch340.html)
+
 ### Core FQBN
 
 ```bash
