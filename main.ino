@@ -3,7 +3,6 @@
 #include <DHT.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
-#include <cstdint>
 // Internal
 #include "State.h"
 #include "Vent.h"
