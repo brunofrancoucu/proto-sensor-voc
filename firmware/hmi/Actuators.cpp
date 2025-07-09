@@ -1,12 +1,12 @@
 #include <DHT.h>
-#include "Vent.h"
+#include "Actuators.h"
 
 bool active = false;           // Your target variable
 unsigned long activeUntil = 0; // Time until which active stays true
 uint8_t relPin = 0;
 uint8_t pushPin = 0;
 
-void setupVent(uint8_t pinRel, uint8_t pinPush)
+void setupActuators(uint8_t pinRel, uint8_t pinPush)
 {
     relPin = pinRel;
     pushPin = pinPush;
@@ -15,7 +15,7 @@ void setupVent(uint8_t pinRel, uint8_t pinPush)
     pinMode(pinPush, INPUT_PULLUP); // Internal pull-up resistor
 }
 
-void runVent()
+void runActuators()
 {
     static bool lastButtonState = HIGH;
     bool buttonState = digitalRead(pushPin);

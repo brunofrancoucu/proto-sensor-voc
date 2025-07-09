@@ -1,7 +1,8 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <DNSServer.h>
-#include "State.h"
+
+#include "data/State.h"
 
 // const char *ssid = "BOMBA_HOTSPOT";
 // const char *password = "12345678";
