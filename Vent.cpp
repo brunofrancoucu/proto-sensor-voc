@@ -10,7 +10,6 @@ void setupVent(uint8_t pinRel, uint8_t pinPush)
 {
     relPin = pinRel;
     pushPin = pinPush;
-    pinMode(9, OUTPUT);
     pinMode(pinRel, OUTPUT);
     digitalWrite(pinRel, LOW);      // Relay OFF if active-low
     pinMode(pinPush, INPUT_PULLUP); // Internal pull-up resistor
