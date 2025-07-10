@@ -11,8 +11,11 @@
 ## Instalacion
 
 ### PlatformIO
+Instalar e iniciar terminal desde vsc `command palette`
 ```bash
 pio project init --board esp32dev --project-option="framework=arduino"
+```
+```bash
 # Compile
 pio run
 # Upload
