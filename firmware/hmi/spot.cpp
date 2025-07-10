@@ -1,11 +1,8 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <DNSServer.h>
-
+// Internal
 #include "data/state.h"
-
-// const char *ssid = "BOMBA_HOTSPOT";
-// const char *password = "12345678";
 
 WebServer server(80);
 DNSServer dnsServer;
@@ -15,18 +12,45 @@ const byte DNS_PORT = 53;
 String ssid = "";
 String password = "";
 
+// const char index_html[] PROGMEM = R"rawliteral(
+//     <form action="/connect" method="POST">
+//       WiFi SSID: <input type="text" name="ssid"><br>
+//       Password: <input type="password" name="password"><br>
+//       <input type="submit" value="Connect">
+//     </form>
+//   )rawliteral";
+
 const char index_html[] PROGMEM = R"rawliteral(
-    <form action="/connect" method="POST">
-      WiFi SSID: <input type="text" name="ssid"><br>
-      Password: <input type="password" name="password"><br>
-      <input type="submit" value="Connect">
-    </form>
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>ESP32 Sensor Data</title>
+    </head>
+    <body>
+      <h1>Sensor Data</h1>
+      <p>Temperature: <span id="temperature">{{temperature}}</span> °C</p>
+      <p>Humidity: <span id="humidity">{{humidity}}</span> %</p>
+      <p>Air Quality: <span id="air">{{air}}</span></p>
+      <form action="/connect" method="POST">
+        WiFi SSID: <input type="text" name="ssid"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" value="Connect">
+      </form>
+    </body>
+    </html>
   )rawliteral";
 
 // /
 void handleRoot()
 {
-  server.send(200, "text/html", index_html);
+  String html = index_html;
+
+  // Replace placeholders with actual sensor data
+  html.replace("{{temperature}}", String(state.temperature, 1));
+  html.replace("{{humidity}}", String(state.humidity, 0));
+  html.replace("{{air}}", state.air);
+
+  server.send(200, "text/html", html);
 }
 
 // /data
