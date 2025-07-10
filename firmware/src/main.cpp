@@ -13,13 +13,17 @@
 void setup()
 {
   Serial.begin(115200);
+  randomSeed(analogRead(0)); // seed 0 entropy
   delay(1500);
 
   // Initialize components
   setupDisplay({.SDA = 33, .SCL = 32});
   setupSensors({.MQ = 35, .DHT = 25});
   setupActuators({.REL = 26, .BTN = 21});
-  setupSpot();
+  setupSpot({
+      .SSID = "E5-VOC-" + String(random(1000, 9999)),
+      .PWD = String(random(10004321, 99994321)),
+  });
 }
 
 void loop()

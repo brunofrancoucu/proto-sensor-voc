@@ -3,6 +3,7 @@
 #include <DNSServer.h>
 // Internal
 #include "state.h"
+#include "spot.h"
 
 WebServer server(80);
 DNSServer dnsServer;
@@ -84,12 +85,12 @@ void handleConnect()
   // Optional: store to EEPROM or SPIFFS
 }
 
-void setupSpot()
+void setupSpot(SpotConfig config)
 {
   Serial.println("Starting AP...");
 
   // Start Access Point
-  WiFi.softAP(ssid, password);
+  WiFi.softAP(config.SSID, config.PWD);
   delay(100);
 
   // Start DNS server and redirect all domains to ESP32 IP
