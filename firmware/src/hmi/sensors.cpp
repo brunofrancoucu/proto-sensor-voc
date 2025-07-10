@@ -1,7 +1,7 @@
 #include <DHT.h>
 // Internal
 #include "sensors.h"
-#include "data/state.h"
+#include "state.h"
 
 String calidad;
 DHT *dht = nullptr; // dht pointer

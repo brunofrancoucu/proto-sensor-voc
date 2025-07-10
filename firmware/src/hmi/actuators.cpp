@@ -1,4 +1,5 @@
 #include <DHT.h>
+// Internal
 #include "actuators.h"
 
 bool active = false;           // Your target variable

@@ -10,6 +10,18 @@
 
 ## Instalacion
 
+### PlatformIO
+```bash
+pio project init --board esp32dev --project-option="framework=arduino"
+# Compile
+pio run
+# Upload
+pio run -t upload
+# Compiles and uploads a LittleFS image of /data
+pio run --target uploadfs 
+pio device monitor
+pio device list
+``` 
 ### Librerias 
 
 ```bash

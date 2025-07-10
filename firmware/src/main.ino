@@ -4,17 +4,11 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 // Internal
-#include "data/state.h"
-#include "ui/display.h"
-#include "hmi/actuators.h"
-#include "hmi/sensors.h"
-#include "hmi/spot.h"
-// TODO: use PlatformIO auto-compile cpp in subfolders
-#include "data/state.cpp"
-#include "ui/display.cpp"
-#include "hmi/actuators.cpp"
-#include "hmi/sensors.cpp"
-#include "hmi/spot.cpp"
+#include "state.h"
+#include "display.h"
+#include "actuators.h"
+#include "sensors.h"
+#include "spot.h"
 
 void setup()
 {

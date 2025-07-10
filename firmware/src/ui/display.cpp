@@ -3,7 +3,7 @@
 #include <Wire.h>
 // Internal
 #include "display.h"
-#include "data/state.h"
+#include "state.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64

@@ -2,7 +2,7 @@
 #include <WebServer.h>
 #include <DNSServer.h>
 // Internal
-#include "data/state.h"
+#include "state.h"
 
 WebServer server(80);
 DNSServer dnsServer;
