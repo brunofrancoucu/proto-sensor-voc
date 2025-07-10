@@ -1,7 +1,13 @@
-#ifndef Actuators_H
-#define Actuators_H
+#ifndef ACTUATORS_H
+#define ACTUATORS_H
 
-void setupActuators(uint8_t pinRel, uint8_t pinPush);
+struct ActuatorPins
+{
+    uint8_t REL;
+    uint8_t BTN;
+};
+
+void setupActuators(ActuatorPins pins);
 void runActuators();
 
 #endif

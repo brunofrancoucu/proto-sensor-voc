@@ -6,13 +6,13 @@ unsigned long activeUntil = 0; // Time until which active stays true
 uint8_t relPin = 0;
 uint8_t pushPin = 0;
 
-void setupActuators(uint8_t pinRel, uint8_t pinPush)
+void setupActuators(ActuatorPins pins)
 {
-    relPin = pinRel;
-    pushPin = pinPush;
-    pinMode(pinRel, OUTPUT);
-    digitalWrite(pinRel, LOW);      // Relay OFF if active-low
-    pinMode(pinPush, INPUT_PULLUP); // Internal pull-up resistor
+    relPin = pins.REL;
+    pushPin = pins.BTN;
+    pinMode(pins.REL, OUTPUT);
+    digitalWrite(pins.REL, LOW);     // Relay OFF if active-low
+    pinMode(pins.BTN, INPUT_PULLUP); // Internal pull-up resistor
 }
 
 void runActuators()

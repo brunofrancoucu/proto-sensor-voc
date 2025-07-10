@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><title>Ni una fruta de mas</title></head>
+<body>
+<h2>Muestreo del aire:</h2>
+<p>Temperature: <span id="temp">--</span> °C</p>
+<p>Humidity: <span id="hum">--</span> %</p>
+<p>Air Quality: <span id="air">--</span> ppm</p>
+
+<script>
+function updateData() {
+  fetch('/data')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('temp').textContent = data.temperature;
+      document.getElementById('hum').textContent = data.humidity;
+      document.getElementById('air').textContent = data.air;
+    });
+}
+setInterval(updateData, 2000);  // update every 2s
+updateData(); // also call it once on load
+</script>
+<p></p>
+<span>Equipo Bomba</span>
+</body>
+</html>

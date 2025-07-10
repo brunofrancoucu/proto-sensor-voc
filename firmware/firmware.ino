@@ -19,28 +19,22 @@
 void setup()
 {
   Serial.begin(115200);
+  delay(1500);
 
   // Initialize components
-  setupDisplay(33, 32);
-  setupSensors(35, 25);
-  setupActuators(26, 21);
+  setupDisplay({.SDA = 33, .SCL = 32});
+  setupSensors({.MQ = 35, .DHT = 25});
+  setupActuators({.REL = 26, .BTN = 21});
   setupSpot();
-
-  delay(1500);
 }
 
 void loop()
 {
+  delay(1000);
+
   // Loop components
   runDisplay();
-  static unsigned long last = 0;
-  if (millis() - last >= 2000)
-  {                  // if 2s have passed
-    last = millis(); // update the timer
-  }
   runSensors();
   runActuators();
   runSpot();
-
-  delay(1000);
 }

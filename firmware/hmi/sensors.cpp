@@ -1,5 +1,5 @@
 #include <DHT.h>
-
+// Internal
 #include "sensors.h"
 #include "data/state.h"
 
@@ -7,26 +7,17 @@ String calidad;
 DHT *dht = nullptr; // dht pointer
 uint8_t mqPin = 0;
 
-void setupSensors(uint8_t pinMQ, uint8_t pinDHT)
+void setupSensors(SensorPins pins)
 {
-    mqPin = pinMQ;
-    if (dht)
-        delete dht; // Clean up if already allocated
-    dht = new DHT(pinDHT, DHT11);
+    mqPin = pins.MQ;
+    dht = new DHT(pins.DHT, DHT11);
     dht->begin();
 }
 
 void runSensors()
 {
-    // Safety check
-    if (!dht)
-    {
-        Serial.print("DHT Error");
-        return;
-    }
-
-    float temp = dht->readTemperature();
-    float hum = dht->readHumidity();
+    float temp_raw = dht->readTemperature();
+    float hum_raw = dht->readHumidity();
     int mq_raw = analogRead(mqPin);
 
     // Normalize values
@@ -35,12 +26,12 @@ void runSensors()
                                                           : "Mala";
 
     // Serial monitor (Temp / Hum / MQ / Aire)
-    Serial.println("Temp: " + String(temp) + " C | Hum: " + String(hum) + " %");
+    Serial.println("Temp: " + String(temp_raw) + " C | Hum: " + String(hum_raw) + " %");
     Serial.println("MQ: " + String(mq_volt) + " V | Aire: " + calidad);
 
     // Update global state
-    state.temperature = temp;
-    state.humidity = hum;
+    state.temperature = temp_raw;
+    state.humidity = hum_raw;
     state.air = calidad;
     // state.air = mq_volt;
 }

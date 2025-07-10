@@ -1,7 +1,13 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-void setupSensors(uint8_t pinMQ, uint8_t pinDHT);
+struct SensorPins
+{
+    uint8_t MQ;
+    uint8_t DHT;
+};
+
+void setupSensors(SensorPins pins);
 void runSensors();
 
 #endif
