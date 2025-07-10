@@ -14,6 +14,8 @@
 Instalar e iniciar terminal desde vsc `command palette`
 ```bash
 pio project init --board esp32dev --project-option="framework=arduino"
+# IntelliSense libraries c_cpp
+pio init --ide vscode
 ```
 ```bash
 # Compile
