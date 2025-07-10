@@ -2,8 +2,8 @@
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
 
-#include "Display.h"
-#include "data/State.h"
+#include "display.h"
+#include "data/state.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64

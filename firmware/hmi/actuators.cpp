@@ -1,5 +1,5 @@
 #include <DHT.h>
-#include "Actuators.h"
+#include "actuators.h"
 
 bool active = false;           // Your target variable
 unsigned long activeUntil = 0; // Time until which active stays true

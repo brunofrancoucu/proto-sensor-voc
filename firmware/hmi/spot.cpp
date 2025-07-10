@@ -2,7 +2,7 @@
 #include <WebServer.h>
 #include <DNSServer.h>
 
-#include "data/State.h"
+#include "data/state.h"
 
 // const char *ssid = "BOMBA_HOTSPOT";
 // const char *password = "12345678";

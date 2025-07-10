@@ -4,18 +4,17 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 // Internal
-#include "data/State.h"
-#include "ui/Display.h"
-#include "hmi/Actuators.h"
-#include "hmi/Sensors.h"
-#include "hmi/Spot.h"
-
+#include "data/state.h"
+#include "ui/display.h"
+#include "hmi/actuators.h"
+#include "hmi/sensors.h"
+#include "hmi/spot.h"
 // TODO: use PlatformIO auto-compile cpp in subfolders
-#include "data/State.cpp"
-#include "ui/Display.cpp"
-#include "hmi/Actuators.cpp"
-#include "hmi/Sensors.cpp"
-#include "hmi/Spot.cpp"
+#include "data/state.cpp"
+#include "ui/display.cpp"
+#include "hmi/actuators.cpp"
+#include "hmi/sensors.cpp"
+#include "hmi/spot.cpp"
 
 void setup()
 {
@@ -38,8 +37,8 @@ void loop()
   if (millis() - last >= 2000)
   {                  // if 2s have passed
     last = millis(); // update the timer
-    runSensors();    // read sensors only now
   }
+  runSensors();
   runActuators();
   runSpot();
 
