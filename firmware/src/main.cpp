@@ -10,6 +10,7 @@
 #include "sensors.h"
 #include "spot.h"
 #include "buzzer.h"
+#include "rfid.h"
 
 void setup()
 {
@@ -26,6 +27,7 @@ void setup()
       .PWD = String(random(10004321, 99994321)),
   });
   setupBuzzer({.BZR = 27, .VOL = 4});
+  setupRFID({.SDA = 4, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
 }
 
 void loop()
@@ -38,4 +40,5 @@ void loop()
   runActuators();
   runSpot();
   runBuzzer();
+  runRFID();
 }
