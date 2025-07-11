@@ -9,6 +9,7 @@
 #include "actuators.h"
 #include "sensors.h"
 #include "spot.h"
+#include "buzzer.h"
 
 void setup()
 {
@@ -24,6 +25,7 @@ void setup()
       .SSID = "E5-VOC-" + String(random(1000, 9999)),
       .PWD = String(random(10004321, 99994321)),
   });
+  setupBuzzer({.BZR = 27, .VOL = 4});
 }
 
 void loop()
@@ -35,4 +37,5 @@ void loop()
   runSensors();
   runActuators();
   runSpot();
+  runBuzzer();
 }
