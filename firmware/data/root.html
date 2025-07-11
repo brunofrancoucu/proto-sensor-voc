@@ -14,7 +14,7 @@ function updateData() {
     .then(data => {
       document.getElementById('temp').textContent = data.temperature;
       document.getElementById('hum').textContent = data.humidity;
-      document.getElementById('air').textContent = data.air;
+      document.getElementById('air').textContent = data.air + " ^m";
     });
 }
 setInterval(updateData, 2000);  // update every 2s

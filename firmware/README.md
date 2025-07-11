@@ -5,6 +5,7 @@
 - VScode extension Arduino por moozzyk
 - Serial port arduino esp32 mac
 - arduino-cli ([instalacion](https://docs.arduino.cc/arduino-cli/installation/))
+- PlatformIO (cli/onWin:vscodeExtension)
 - CP2102 / 04, by silicon labs, drivers: [CP210x VCP Drivers](https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers?tab=downloads)
 - CH9102 (micro) / CH340 (usb-c), by WCH, drivers: [Spark](https://sparks.gogo.co.nz/ch340.html)
 
@@ -20,13 +21,19 @@ pio init --ide vscode
 ```bash
 # Compile
 pio run
-# Upload
+# Upload & compile
 pio run -t upload
 # Compiles and uploads a LittleFS image of /data
 pio run --target uploadfs 
 pio device monitor
 pio device list
 ``` 
+gzip files
+```bash
+gzip -k data/index.html
+mv data/index.html.gz data/index.html
+pio run --target uploadfs
+```
 ### Librerias 
 
 ```bash
