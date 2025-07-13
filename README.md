@@ -7,10 +7,10 @@ Utilizando una unidad de procesamiento (Arduino UNO luego ESP32), combinamos dif
 Pre isntalar librerias, drivers, requisitos, [pasos](main/README.md/#instalacion)
 
 ```bash
-# reemplazar puerto y core
-arduino-cli compile --fqbn espressif:esp32:esp32 ./firmware/firmware.ino
-arduino-cli upload -p /dev/ttyAMA0 --fqbn espressif:esp32:esp32 ./firmware/firmware.ino
-arduino-cli monitor -p /dev/cu.wchusbserial5A770373911 --fqbn espressif:esp32:esp32 -c baudrate=115200
+io run -t upload
+# Compiles and uploads a LittleFS image of /data
+pio run --target uploadfs 
+pio device monitor
 ```
 
 ## Inicializacion Frontend
