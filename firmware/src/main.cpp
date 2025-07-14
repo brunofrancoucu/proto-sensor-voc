@@ -26,7 +26,7 @@ void setup()
       .SSID = "E5-VOC-" + String(random(1000, 9999)),
       .PWD = String(random(10004321, 99994321)),
   });
-  setupBuzzer({.BZR = 27, .VOL = 4});
+  setupBuzzer({.BZR = 27, .VOL = 128});
   setupRFID({.SDA = 4, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
 }
 

@@ -3,6 +3,7 @@
 #include <LittleFS.h>
 // Internal
 #include "state.h"
+#include <ArduinoJson.h> // Required for creating JSON
 
 void handleRoot(WebServer &server)
 {
@@ -25,13 +26,17 @@ void handleData(WebServer &server)
     //     server.send(500, "application/json", "{\"error\": \"Sensor read failed\"}");
     //     return;
     // }
+    // Create a JSON document
+    StaticJsonDocument<200> doc;
+    doc["temperature"] = state.temperature;
+    doc["humidity"] = state.humidity;
+    doc["mq_raw"] = state.mq_raw;
 
-    String json = "{";
-    json += "\"temperature\": " + String(state.temperature, 1) + ",";
-    json += "\"humidity\": " + String(state.humidity, 1) + ",";
-    json += "\"air\": " + String(state.air);
-    json += "}";
+    // Serialize the JSON document to a string
+    String json;
+    serializeJson(doc, json);
 
+    // Send the JSON response
     server.send(200, "application/json", json);
 }
 

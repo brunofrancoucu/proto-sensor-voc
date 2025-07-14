@@ -29,9 +29,13 @@ void runSensors()
     Serial.println("Temp: " + String(temp_raw) + " C | Hum: " + String(hum_raw) + " %");
     Serial.println("MQ: " + String(mq_volt) + " V | Aire: " + calidad);
 
-    // Update global state
-    state.temperature = temp_raw;
-    state.humidity = hum_raw;
-    state.air = calidad;
-    // state.air = mq_volt;
+    if (isnan(state.temperature) && isnan(state.humidity))
+    {
+        // Update global state
+        state.temperature = temp_raw;
+        state.humidity = hum_raw;
+        state.air = calidad;
+        // state.air = mq_volt;
+    }
+    state.mq_raw = mq_raw;
 }

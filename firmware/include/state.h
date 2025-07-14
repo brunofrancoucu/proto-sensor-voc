@@ -18,6 +18,7 @@ struct AppState
     int motorSpeed;
     float temperature;
     float humidity;
+    float mq_raw;
     String air;
     bool isRunning;
 };
