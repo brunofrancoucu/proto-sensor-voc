@@ -1,9 +1,9 @@
 // On low storage: server.sendHeader("Content-Encoding", "gzip");
-#include <WebServer.h> // Include the WebServer library
+#include <WebServer.h>
 #include <LittleFS.h>
 // Internal
 #include "state.h"
-#include <ArduinoJson.h> // Required for creating JSON
+#include <ArduinoJson.h>
 
 void handleRoot(WebServer &server)
 {
