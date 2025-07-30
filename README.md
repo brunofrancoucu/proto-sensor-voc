@@ -1,4 +1,4 @@
-# ti3-e5-p2
+# Sensor VOC (Prototipo)
 Banner
 
 Utilizando una unidad de procesamiento (Arduino UNO luego ESP32), combinamos diferentes sensores (TODO: citar memoria).
