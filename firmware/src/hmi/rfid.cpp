@@ -6,7 +6,7 @@
 #include <MFRC522.h>
 
 MFRC522* mfrcid = nullptr;
-// MFRC522::MIFARE_Key key; 
+MFRC522::MIFARE_Key key; 
 byte nuidPICC[4]; // store new NUID 
 
 void setupRFID(RfidPins pins) {
@@ -14,13 +14,9 @@ void setupRFID(RfidPins pins) {
   SPI.begin(pins.SCK, pins.MISO, pins.MOSI, pins.SDA); // SPI bus
   mfrcid->PCD_Init(); // Init MFRC522 
 
-//   for (byte i = 0; i < 6; i++) {
-//     key.keyByte[i] = 0xFF; // Defailt MIFARE classic
-//   }
-
-  Serial.println(F("This code scan the MIFARE Classsic NUID."));
-  Serial.print(F("Using the following key:"));
-//   printHex(key.keyByte, MFRC522::MF_KEY_SIZE);
+  for (byte i = 0; i < 6; i++) {
+    key.keyByte[i] = 0xFF; // Defailt MIFARE classic
+  }
 }
  
 void runRFID() {
