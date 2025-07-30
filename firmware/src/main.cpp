@@ -15,6 +15,8 @@
 void setup()
 {
   Serial.begin(115200);
+  while (!Serial);
+
   randomSeed(analogRead(0)); // seed 0 entropy
   delay(1500);
 
@@ -27,7 +29,7 @@ void setup()
       .PWD = String(random(10004321, 99994321)),
   });
   setupBuzzer({.BZR = 27, .VOL = 128});
-  setupRFID({.SDA = 4, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
+  setupRFID({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
 }
 
 void loop()

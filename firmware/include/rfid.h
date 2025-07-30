@@ -18,4 +18,8 @@ struct RfidPins
 void setupRFID(RfidPins pins);
 void runRFID();
 
+// Function declarations
+void printHex(byte *buffer, byte bufferSize);
+void printDec(byte *buffer, byte bufferSize);
+ 
 #endif
