@@ -11,6 +11,9 @@
 #include "spot.h"
 #include "buzzer.h"
 #include "rfid.h"
+#include "cycle.h"
+
+CycleEvery sensor(2000);
 
 void setup()
 {
@@ -34,11 +37,9 @@ void setup()
 
 void loop()
 {
-  delay(1000);
-
   // Loop components
+  sensor.run(runSensors);
   runDisplay();
-  runSensors();
   runActuators();
   runSpot();
   runBuzzer();
