@@ -5,10 +5,9 @@
 #include <Arduino.h>
 
 /**
- * CycleComp - A periodic task scheduler with optional setup logic.
+ * A periodic task scheduler with optional setup logic.
  * Use at components, sensors or routines that need warm-up/setup and periodic execution.
  */
-
 template<typename... Args>
 class CycleComp {
   unsigned long lastRun = 0;
@@ -34,7 +33,12 @@ public:
   }
 };
 
-// For function pointers (support lambda via twice pointer in params)
+// 
+/**
+ * CycleComp - type safe factory
+ * note: For function pointers (support lambda via twice pointer in params)
+ * @see CycleComp
+ */
 template<typename Ret, typename... Args>
 auto makeCycleComp(Ret (*sCb)(Args...), std::function<void()> rCb) -> CycleComp<Args...> {
     return CycleComp<Args...>(sCb, rCb);
