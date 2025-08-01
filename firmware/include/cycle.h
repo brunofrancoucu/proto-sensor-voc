@@ -5,17 +5,39 @@
 #include <Arduino.h>
 
 /**
- * Analog voltage that gluctuates. Analog to digital conversion, waste CPU cycles.
- * Noisy sensor readings, compute average over time. Warm-up (MQ sensors).
- * TODO hmi ui ap to Class run & setup
+ * CycleComp - A periodic task scheduler with optional setup logic.
+ * Use at components, sensors or routines that need warm-up/setup and periodic execution.
  */
-class CycleEvery {
-    unsigned long lastTime;
-    unsigned long interval;
+
+template<typename... Args>
+class CycleComp {
+  unsigned long lastRun = 0;
+  unsigned long interval = 0;
+
+private:
+  std::function<void(Args...)> setupCallback;
+  std::function<void()> runCallback;
 
 public:
-    CycleEvery(unsigned long interval);
-    void run(std::function<void()> callback);
+  CycleComp(std::function<void(Args...)> sCb,  std::function<void()> rCb)
+    : setupCallback(sCb), runCallback(rCb) {}
+
+  void setup(Args... args) {
+    return setupCallback(std::forward<Args>(args)...);
+  }
+
+  void run(unsigned long ms = 100) {
+    if (millis() - lastRun >= ms) {
+      lastRun = millis();
+      if (runCallback) runCallback();
+    }
+  }
 };
 
-#endif
+// For function pointers (support lambda via twice pointer in params)
+template<typename Ret, typename... Args>
+auto makeCycleComp(Ret (*sCb)(Args...), std::function<void()> rCb) -> CycleComp<Args...> {
+    return CycleComp<Args...>(sCb, rCb);
+}
+
+#endif // CYCLE_H

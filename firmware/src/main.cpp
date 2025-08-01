@@ -13,35 +13,39 @@
 #include "rfid.h"
 #include "cycle.h"
 
-CycleEvery sensor(2000);
+auto sensors = makeCycleComp(setupSensors, runSensors);
+auto screen = makeCycleComp(setupDisplay, runDisplay);
+auto actuators = makeCycleComp(setupActuators, runActuators);
+auto spot = makeCycleComp(setupSpot, runSpot);
+auto buzzer = makeCycleComp(setupBuzzer, runBuzzer);
+auto rfid = makeCycleComp(setupRFID, runRFID);
 
 void setup()
 {
   Serial.begin(115200);
   while (!Serial);
-
   randomSeed(analogRead(0)); // seed 0 entropy
   delay(1500);
 
   // Initialize components
-  setupDisplay({.SDA = 33, .SCL = 32});
-  setupSensors({.MQ = 35, .DHT = 25});
-  setupActuators({.REL = 26, .BTN = 21});
-  setupSpot({
-      .SSID = "E5-VOC-" + String(random(1000, 9999)),
-      .PWD = String(random(10004321, 99994321)),
+  actuators.setup({.REL = 26, .BTN = 21});
+  sensors.setup({.MQ = 35, .DHT = 25});
+  screen.setup({.SDA = 33, .SCL = 32});
+  buzzer.setup({.BZR = 27, .VOL = 128});
+  rfid.setup({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
+  spot.setup({
+    .SSID = "E5-VOC-" + String(random(1000, 9999)),
+    .PWD = String(random(10004321, 99994321))
   });
-  setupBuzzer({.BZR = 27, .VOL = 128});
-  setupRFID({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
 }
 
 void loop()
 {
   // Loop components
-  sensor.run(runSensors);
-  runDisplay();
-  runActuators();
-  runSpot();
-  runBuzzer();
-  runRFID();
+  sensors.run(2000);
+  screen.run();
+  actuators.run();
+  spot.run();
+  buzzer.run();
+  rfid.run();
 }
