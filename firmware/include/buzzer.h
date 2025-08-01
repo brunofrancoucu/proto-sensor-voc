@@ -1,7 +1,7 @@
 #ifndef BUZZER_H
 #define BUZZER_H
 
-#include <Arduino.h>
+#include "cycle.h"
 
 struct BuzzerPins
 {
@@ -10,7 +10,7 @@ struct BuzzerPins
 };
 
 void playTone(int freq, int duration);
-void setupBuzzer(BuzzerPins pins);
-void runBuzzer();
+
+extern CycleComp<BuzzerPins> buzzer;
 
 #endif

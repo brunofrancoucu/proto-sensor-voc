@@ -1,47 +1,51 @@
+#include "display.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
 // Internal
-#include "display.h"
 #include "state.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
-Adafruit_SSD1306 disp(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+static Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-void setupDisplay(DisplayPins pins)
-{
-    Wire.begin(pins.SDA, pins.SCL);
-    disp.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-    disp.clearDisplay();
-    disp.setTextSize(1);
-    disp.setTextColor(SSD1306_WHITE);
-    disp.setCursor(0, 0);
-    disp.println("Bienvenido");
-    disp.display();
+namespace {
+    void initSetup(DisplayPins pins)
+    {
+        Wire.begin(pins.SDA, pins.SCL);
+        oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+        oled.clearDisplay();
+        oled.setTextSize(1);
+        oled.setTextColor(SSD1306_WHITE);
+        oled.setCursor(0, 0);
+        oled.println("Bienvenido");
+        oled.display();
+    }
+    
+    void cycle()
+    {
+        oled.clearDisplay();
+        oled.setCursor(0, 0);
+    
+        if (!isnan(state.temperature) && !isnan(state.humidity))
+        {
+            oled.print("Temp: ");
+            oled.print(state.temperature, 1);
+            oled.println(" C");
+            oled.print("Humedad: ");
+            oled.print(state.humidity, 0);
+            oled.println(" %");
+        }
+        else
+        {
+            oled.println("Error DHT11");
+        }
+    
+        oled.print("Aire: ");
+        oled.println(state.air);
+        oled.display();
+    }
 }
 
-void runDisplay()
-{
-    disp.clearDisplay();
-    disp.setCursor(0, 0);
-
-    if (!isnan(state.temperature) && !isnan(state.humidity))
-    {
-        disp.print("Temp: ");
-        disp.print(state.temperature, 1);
-        disp.println(" C");
-        disp.print("Humedad: ");
-        disp.print(state.humidity, 0);
-        disp.println(" %");
-    }
-    else
-    {
-        disp.println("Error DHT11");
-    }
-
-    disp.print("Aire: ");
-    disp.println(state.air);
-    disp.display();
-}
+decltype(display) display = makeCycleComp(initSetup, cycle);

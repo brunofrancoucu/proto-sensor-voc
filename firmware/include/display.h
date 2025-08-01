@@ -1,7 +1,8 @@
-#include <cstdint>
-
 #ifndef DISPLAY_H
 #define DISPLAY_H
+
+#include <cstdint>
+#include "cycle.h"
 
 struct DisplayPins
 {
@@ -9,7 +10,6 @@ struct DisplayPins
     uint8_t SCL;
 };
 
-void setupDisplay(DisplayPins pins);
-void runDisplay();
+extern CycleComp<DisplayPins> display;
 
 #endif

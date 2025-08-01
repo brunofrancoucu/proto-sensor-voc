@@ -13,13 +13,6 @@
 #include "rfid.h"
 #include "cycle.h"
 
-auto sensors = makeCycleComp(setupSensors, runSensors);
-auto display = makeCycleComp(setupDisplay, runDisplay);
-auto actuators = makeCycleComp(setupActuators, runActuators);
-auto spot = makeCycleComp(setupSpot, runSpot);
-auto buzzer = makeCycleComp(setupBuzzer, runBuzzer);
-auto rfid = makeCycleComp(setupRFID, runRFID);
-
 void setup()
 {
   Serial.begin(115200);

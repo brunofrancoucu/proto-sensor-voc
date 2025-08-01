@@ -11,22 +11,26 @@ void playTone(int freq, int duration)
     delay(30);       // Small pause between notes
 }
 
-void setupBuzzer(BuzzerPins pins)
-{
-
-    // Initialize the buzzer pin
-    pinMode(pins.BZR, OUTPUT);
-    // Set up LEDC for PWM control of the buzzer
-    ledcSetup(0, 2000, 8);      // (channel, frequency, resolution)
-    ledcAttachPin(pins.BZR, 0); // Attach buzzerPin to channel 0
-    duty = pins.VOL;            // Set volume (0-255)
-
-    // Welcome sound
-    playTone(523, 100); // C5 (do)
-    playTone(659, 100); // E5 (mi)
-    playTone(784, 150); // G5 (sol)
+namespace {
+    void initSetup(BuzzerPins pins)
+    {
+    
+        // Initialize the buzzer pin
+        pinMode(pins.BZR, OUTPUT);
+        // Set up LEDC for PWM control of the buzzer
+        ledcSetup(0, 2000, 8);      // (channel, frequency, resolution)
+        ledcAttachPin(pins.BZR, 0); // Attach buzzerPin to channel 0
+        duty = pins.VOL;            // Set volume (0-255)
+    
+        // Welcome sound
+        playTone(523, 100); // C5 (do)
+        playTone(659, 100); // E5 (mi)
+        playTone(784, 150); // G5 (sol)
+    }
+    
+    void cycle()
+    {
+    }
 }
 
-void runBuzzer()
-{
-}
+decltype(buzzer) buzzer = makeCycleComp(initSetup, cycle);

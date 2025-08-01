@@ -7,6 +7,7 @@
 /**
  * @brief A periodic task scheduler with optional setup logic.
  * @note Use at components, sensors or routines that need warm-up/setup and periodic execution.
+ * alt: Using a Class with Virtual Functions (C++ OO style)
  * @see makeCycleComp
  */
 template<typename... Args>
