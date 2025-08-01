@@ -14,7 +14,7 @@
 #include "cycle.h"
 
 auto sensors = makeCycleComp(setupSensors, runSensors);
-auto screen = makeCycleComp(setupDisplay, runDisplay);
+auto display = makeCycleComp(setupDisplay, runDisplay);
 auto actuators = makeCycleComp(setupActuators, runActuators);
 auto spot = makeCycleComp(setupSpot, runSpot);
 auto buzzer = makeCycleComp(setupBuzzer, runBuzzer);
@@ -30,7 +30,7 @@ void setup()
   // Initialize components
   actuators.setup({.REL = 26, .BTN = 21});
   sensors.setup({.MQ = 35, .DHT = 25});
-  screen.setup({.SDA = 33, .SCL = 32});
+  display.setup({.SDA = 33, .SCL = 32});
   buzzer.setup({.BZR = 27, .VOL = 128});
   rfid.setup({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
   spot.setup({
@@ -43,7 +43,7 @@ void loop()
 {
   // Loop components
   sensors.run(2000);
-  screen.run();
+  display.run();
   actuators.run();
   spot.run();
   buzzer.run();

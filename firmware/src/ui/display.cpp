@@ -8,40 +8,40 @@
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+Adafruit_SSD1306 disp(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 void setupDisplay(DisplayPins pins)
 {
     Wire.begin(pins.SDA, pins.SCL);
-    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-    display.clearDisplay();
-    display.setTextSize(1);
-    display.setTextColor(SSD1306_WHITE);
-    display.setCursor(0, 0);
-    display.println("Bienvenido");
-    display.display();
+    disp.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+    disp.clearDisplay();
+    disp.setTextSize(1);
+    disp.setTextColor(SSD1306_WHITE);
+    disp.setCursor(0, 0);
+    disp.println("Bienvenido");
+    disp.display();
 }
 
 void runDisplay()
 {
-    display.clearDisplay();
-    display.setCursor(0, 0);
+    disp.clearDisplay();
+    disp.setCursor(0, 0);
 
     if (!isnan(state.temperature) && !isnan(state.humidity))
     {
-        display.print("Temp: ");
-        display.print(state.temperature, 1);
-        display.println(" C");
-        display.print("Humedad: ");
-        display.print(state.humidity, 0);
-        display.println(" %");
+        disp.print("Temp: ");
+        disp.print(state.temperature, 1);
+        disp.println(" C");
+        disp.print("Humedad: ");
+        disp.print(state.humidity, 0);
+        disp.println(" %");
     }
     else
     {
-        display.println("Error DHT11");
+        disp.println("Error DHT11");
     }
 
-    display.print("Aire: ");
-    display.println(state.air);
-    display.display();
+    disp.print("Aire: ");
+    disp.println(state.air);
+    disp.display();
 }
