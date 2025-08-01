@@ -1,8 +1,8 @@
-#include "rfid.h"
+#include "drivers/rfid.h"
 #include <SPI.h>
 #include <MFRC522.h>
 // Internal
-#include "buzzer.h"
+#include "drivers/buzzer.h"
 #include "format.h"
 
 namespace {

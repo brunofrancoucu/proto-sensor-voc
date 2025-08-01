@@ -1,4 +1,4 @@
-#include "sensors.h"
+#include "drivers/sensors.h"
 #include <DHT.h>
 // Internal
 #include "state.h"

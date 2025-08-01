@@ -1,4 +1,4 @@
-#include "spot.h"
+#include "drivers/spot.h"
 #include <WiFi.h>
 #include <WebServer.h>
 #include <DNSServer.h>
