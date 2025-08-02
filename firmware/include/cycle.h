@@ -30,7 +30,7 @@ public:
   void run(unsigned long period_ms = 100) {
     if (millis() - prev_ms >= period_ms) {
       // Cumulative delay correction (keep allignment)
-      int drift_ms = millis() - prev_ms - period_ms;
+      int drift_ms = (millis() - prev_ms - period_ms) % period_ms;
       prev_ms = millis() - drift_ms;
       if (runCallback) runCallback();
     }
