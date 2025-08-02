@@ -28,9 +28,9 @@ void handleData(WebServer &server)
     // }
     // Create a JSON document
     StaticJsonDocument<200> doc;
-    doc["temperature"] = state.temperature;
-    doc["humidity"] = state.humidity;
-    doc["mq_raw"] = state.mq_raw;
+    doc["temperature"] = state.air.temp;
+    doc["humidity"] = state.air.hum;
+    doc["mq_raw"] = state.air.mq2;
 
     // Serialize the JSON document to a string
     String json;

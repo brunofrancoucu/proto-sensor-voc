@@ -2,25 +2,31 @@
 #define STATE_H
 #include <Arduino.h>
 
-// struct SensorReadings {
-//   float temperature;
-//   String air;
-// };
+struct ScreenState {
+    bool isOn;
+    int brightness;
+    // interface
+    int view;
+};
 
-// struct AppState {
-//   int motorSpeed;
-//   SensorReadings readings; // Object as a property
-//   bool isRunning;
-// };
+struct AirState {
+  float temp;
+  float hum;
+  float mq2;
+  float mq135;
+  String status;
+};
+
+struct ScanState {
+    int motorSpeed; // on off, relay
+    bool isRunning;
+};
 
 struct AppState
 {
-    int motorSpeed;
-    float temperature;
-    float humidity;
-    float mq_raw;
-    String air;
-    bool isRunning;
+    ScreenState screen;
+    ScanState scan;
+    AirState air;
 };
 
 extern AppState state;

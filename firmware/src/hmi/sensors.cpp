@@ -29,16 +29,16 @@ namespace {
         // Serial monitor (Temp / Hum / MQ / Aire)
         Serial.println("Temp: " + String(temp_raw) + " C | Hum: " + String(hum_raw) + " %");
         Serial.println("MQ: " + String(mq_volt) + " V | Aire: " + calidad);
-    
-        if (isnan(state.temperature) && isnan(state.humidity))
+
+        if (isnan(state.air.temp) && isnan(state.air.hum))
         {
             // Update global state
-            state.temperature = temp_raw;
-            state.humidity = hum_raw;
-            state.air = calidad;
+            state.air.temp = temp_raw;
+            state.air.hum = hum_raw;
+            state.air.status = calidad;
             // state.air = mq_volt;
         }
-        state.mq_raw = mq_raw;
+        state.air.mq2 = mq_raw;
     }
 }
 

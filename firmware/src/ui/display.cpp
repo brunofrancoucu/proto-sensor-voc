@@ -27,14 +27,14 @@ namespace {
     {
         oled.clearDisplay();
         oled.setCursor(0, 0);
-    
-        if (!isnan(state.temperature) && !isnan(state.humidity))
+
+        if (!isnan(state.air.temp) && !isnan(state.air.hum))
         {
             oled.print("Temp: ");
-            oled.print(state.temperature, 1);
+            oled.print(state.air.temp, 1);
             oled.println(" C");
             oled.print("Humedad: ");
-            oled.print(state.humidity, 0);
+            oled.print(state.air.hum, 0);
             oled.println(" %");
         }
         else
@@ -43,7 +43,7 @@ namespace {
         }
     
         oled.print("Aire: ");
-        oled.println(state.air);
+        oled.println(state.air.status);
         oled.display();
     }
 }
