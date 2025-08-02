@@ -15,9 +15,8 @@
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial);
-  randomSeed(analogRead(0)); // seed 0 entropy
-  delay(1500);
+  randomSeed(analogRead(0)); // use entropy
+  delay(200);
 
   // Initialize components
   actuators.setup({.REL = 26, .BTN = 21});
@@ -34,7 +33,7 @@ void setup()
 void loop()
 {
   // Loop components
-  sensors.run(2000);
+  sensors.run(2000); // 250ms DHT (false on UI)
   display.run(33.33); // 30 FPS
   actuators.run();
   spot.run();
