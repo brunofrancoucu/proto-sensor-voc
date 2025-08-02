@@ -35,7 +35,7 @@ void loop()
 {
   // Loop components
   sensors.run(2000);
-  display.run();
+  display.run(33.33); // 30 FPS
   actuators.run();
   spot.run();
   buzzer.run();
