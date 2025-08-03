@@ -1,4 +1,4 @@
-#include "drivers/buttons.h"
+#include "core/buttons.h"
 #include "helpers/input.h"
 #include "state.h"
 

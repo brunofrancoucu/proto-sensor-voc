@@ -1,11 +1,11 @@
-#include "drivers/spot.h"
+#include "ap/spot.h"
 #include <WiFi.h>
 #include <WebServer.h>
 #include <DNSServer.h>
 #include <LittleFS.h>
 // Internal
 #include "state.h"
-#include "routes.h"
+#include "ap/routes.h"
 
 namespace {
   WebServer server(80);

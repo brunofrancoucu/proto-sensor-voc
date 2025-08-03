@@ -1,4 +1,4 @@
-#include "drivers/buzzer.h"
+#include "ui/buzzer.h"
 
 int duty = 4;
 

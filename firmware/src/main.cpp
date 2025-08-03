@@ -5,14 +5,14 @@
 #include <Adafruit_GFX.h>
 // Internal
 #include "state.h"
-#include "drivers/display.h"
-#include "drivers/actuators.h"
-#include "drivers/sensors.h"
-#include "drivers/spot.h"
-#include "drivers/buzzer.h"
-#include "drivers/rfid.h"
-#include "drivers/buttons.h"
-#include "drivers/manager.h"
+#include "ap/spot.h"
+#include "hmi/actuators.h"
+#include "hmi/sensors.h"
+#include "hmi/rfid.h"
+#include "core/buttons.h"
+#include "core/manager.h"
+#include "ui/display.h"
+#include "ui/buzzer.h"
 
 void setup()
 {
