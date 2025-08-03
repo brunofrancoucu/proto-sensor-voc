@@ -1,37 +1,69 @@
 #ifndef STATE_H
 #define STATE_H
 #include <Arduino.h>
+#include <vector>
 
-enum class UIMode
+enum UIMode
 {
     Navigation,
     Adjustment,
-    NotPopUp
+    /** Notification pop up with options */
+    Notification
 };
 
 struct DisplayState
 {
+    UIMode mode;
+    int activeOpt; // VIEW
+    int focusedOpt; // hovered selection
+    // std::vector<std::vector<int>> matrix;
+    std::vector<int> matrix;
+
+    void next(int maxOptions = 64) {
+        focusedOpt = (focusedOpt + 1) % maxOptions;
+    }
+    
+    void prev(int maxOptions = 64) {
+        focusedOpt = (focusedOpt - 1 + maxOptions) % maxOptions;
+    }
+
+    void select() {
+        // Store updated adjustment state
+        matrix[activeOpt] = focusedOpt;
+
+        // Internal state options
+        focusedOpt = matrix[focusedOpt]; // enter adj val
+        activeOpt = focusedOpt;
+
+        // Interface View
+        switch (mode)
+        {
+        case UIMode::Navigation:
+            /* code */
+            mode = UIMode::Adjustment;
+            break;
+
+        case UIMode::Adjustment:
+            /* code */
+            mode = UIMode::Navigation;
+            break;
+        case UIMode::Notification:
+            mode = UIMode::Navigation;
+        default:
+            break;
+        }
+    }
+
     bool isOn;
     int brightness;
-    // interface
-    int view;
-    UIMode mode;
-
-    void next(int maxViews = 3)
-    {
-        view = (view + 1) % maxViews;
-    }
-
-    void prev(int maxViews = 3)
-    {
-        view = (view - 1 + maxViews) % maxViews;
-    }
 };
 
 struct InputButton
 {
+    // Button down state
     bool pressed = false;
-    bool usedOnce = false;
+    // Used once in current cycle
+    bool once = false;
     unsigned long down_ms = 0;
 };
 

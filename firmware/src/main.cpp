@@ -13,6 +13,7 @@
 #include "core/manager.h"
 #include "ui/display.h"
 #include "ui/buzzer.h"
+#include "ui/leds.h"
 
 void setup()
 {
@@ -26,11 +27,12 @@ void setup()
   actuators.setup({.REL = 26, .BTN = 21});
   rfid.setup({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
   // Core (Inputs)
-  buttons.setup({.LFT = 34, .MID = 35, .RGT = 36});
+  buttons.setup({.LFT = 17, .MID = 16, .RGT = 4});
   manager.setup();
   // Interface
   display.setup({.SDA = 33, .SCL = 32});
-  buzzer.setup({.BZR = 27, .VOL = 128});
+  buzzer.setup({.BZR = 22, .VOL = 128});
+  leds.setup({.GRN = 2});
 }
 
 void loop()
@@ -45,4 +47,5 @@ void loop()
   // Interface
   display.run(33.33); // 30 FPS
   buzzer.run();
+  leds.run();
 }

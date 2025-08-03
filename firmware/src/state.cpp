@@ -2,10 +2,12 @@
 
 AppState state = {
     .display = {
+        .mode = UIMode::Navigation,
+        .activeOpt = 0,
+        .focusedOpt = 0,
+        .matrix = std::vector<int>(5, 0),
         .isOn = false,
         .brightness = 128,
-        .view = 0,
-        .mode = UIMode::Navigation
     },
     .scan = {
         .motorSpeed = 0,

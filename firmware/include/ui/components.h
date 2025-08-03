@@ -2,17 +2,53 @@
 #define UI_COMPONENTS_H
 
 #include <Adafruit_SSD1306.h>
+#include <vector>
 
-namespace nav {
+// Welcome
+
+namespace welcome {
     void paint(Adafruit_SSD1306& oled);
+};
+
+// UI Components for the display
+
+namespace navbar {
+    struct Config {
+        std::string clock;
+        bool alertIcon;
+        bool wifiIcon;
+    };
+    
+    void paint(Adafruit_SSD1306& oled, Config config);
+}
+
+namespace btmbar {
+    struct Config {
+        std::string txtL;
+        std::string txtR;
+    };
+
+    void paint(Adafruit_SSD1306& oled, Config config);
 }
 
 namespace menu {
-    void paint(Adafruit_SSD1306& oled);
+    struct Config {
+        std::vector<std::string> labels;
+        int focused;
+    };
+
+    void paint(Adafruit_SSD1306& oled, Config config);
 }
 
+// Adjustment Views
+
 namespace sensors {
-    void paint(Adafruit_SSD1306& oled);
+    struct Config {
+        int temp;
+        int hum;
+    };
+
+    void paint(Adafruit_SSD1306& oled, Config config);
 }
 
 #endif

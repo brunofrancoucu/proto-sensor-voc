@@ -3,47 +3,66 @@
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
 // Internal
+#include "ui/components.h"
 #include "state.h"
 
-#define OLED_WIDTH 128
-#define OLED_HEIGHT 64
-
-static Adafruit_SSD1306 oled(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
+static Adafruit_SSD1306 oled(128, 64, &Wire, -1);
 
 namespace {
     void initSetup(DisplayPins pins)
     {
         Wire.begin(pins.SDA, pins.SCL);
         oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-        oled.clearDisplay();
-        oled.setTextSize(1);
-        oled.setTextColor(SSD1306_WHITE);
-        oled.setCursor(0, 0);
-        oled.println("Bienvenido");
-        oled.display();
+        welcome::paint(oled);
     }
     
     void cycle()
     {
+        std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen", "Comunicarse"};
+        int& act = state.display.activeOpt;
+
         oled.clearDisplay();
         oled.setCursor(0, 0);
 
-        if (!isnan(state.air.temp) && !isnan(state.air.hum))
+        navbar::paint(oled, {
+            .clock = "12:34",
+            .alertIcon = false,
+            .wifiIcon = true
+        });
+
+        switch (state.display.mode) 
         {
-            oled.print("Temp: ");
-            oled.print(state.air.temp, 1);
-            oled.println(" C");
-            oled.print("Humedad: ");
-            oled.print(state.air.hum, 0);
-            oled.println(" %");
+        case UIMode::Navigation:
+
+            btmbar::paint(oled, {
+                .txtL = labels[(act + labels.size() - 1) % labels.size()],
+                .txtR = labels[(act + labels.size() + 1) % labels.size()]
+            });
+            
+            menu::paint(oled, {
+                // icons = [bitmaps]
+                .labels = labels,
+                .focused = act,
+            });
+
+            break;
+        case UIMode::Adjustment:
+
+            btmbar::paint(oled, {
+                .txtL = "SUBIR",
+                .txtR = "BAJAR"
+            });
+
+            switch (state.display.activeOpt) {
+                case 0: // Sensors
+                    sensors::paint(oled, {
+                    .temp = static_cast<int>(state.air.temp),
+                    .hum = static_cast<int>(state.air.hum)
+                });
+            break;
+
+            }
         }
-        else
-        {
-            oled.println("Error DHT11");
-        }
-    
-        oled.print("Aire: ");
-        oled.println(state.air.status);
         oled.display();
     }
 }
