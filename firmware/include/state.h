@@ -2,35 +2,41 @@
 #define STATE_H
 #include <Arduino.h>
 
-enum class UIMode {
+enum class UIMode
+{
     Navigation,
     Adjustment,
     NotPopUp
 };
 
-struct DisplayState {
+struct DisplayState
+{
     bool isOn;
     int brightness;
     // interface
     int view;
-    UIMode mode = UIMode::Navigation;
+    UIMode mode;
 
-    void next(int maxViews = 3) {
+    void next(int maxViews = 3)
+    {
         view = (view + 1) % maxViews;
     }
 
-    void prev(int maxViews = 3) {
+    void prev(int maxViews = 3)
+    {
         view = (view - 1 + maxViews) % maxViews;
     }
 };
 
-struct InputButton {
+struct InputButton
+{
     bool pressed = false;
     bool usedOnce = false;
     unsigned long down_ms = 0;
 };
 
-struct InputState {
+struct InputState
+{
     InputButton LFT;
     InputButton MID;
     InputButton RGT;
@@ -38,15 +44,17 @@ struct InputState {
 
 // Settings (vol)
 
-struct AirState {
-  float temp;
-  float hum;
-  float mq2;
-  float mq135;
-  String status;
+struct AirState
+{
+    float temp;
+    float hum;
+    float mq2;
+    float mq135;
+    String status;
 };
 
-struct ScanState {
+struct ScanState
+{
     int motorSpeed; // on off, relay
     bool isRunning;
 };

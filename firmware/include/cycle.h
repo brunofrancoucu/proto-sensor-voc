@@ -10,8 +10,9 @@
  * alt: Using a Class with Virtual Functions (C++ OO style)
  * @see makeCycleComp
  */
-template<typename... Args>
-class CycleComp {
+template <typename... Args>
+class CycleComp
+{
   unsigned long prev_ms = 0;
 
 private:
@@ -19,20 +20,24 @@ private:
   std::function<void()> runCallback;
 
 public:
-  CycleComp(std::function<void(Args...)> sCb,  std::function<void()> rCb)
-    : setupCallback(sCb), runCallback(rCb) {}
+  CycleComp(std::function<void(Args...)> sCb, std::function<void()> rCb)
+      : setupCallback(sCb), runCallback(rCb) {}
 
-  void setup(Args... args) {
+  void setup(Args... args)
+  {
     return setupCallback(std::forward<Args>(args)...);
   }
 
   // Non blocking periodic execution
-  void run(unsigned long period_ms = 100) {
-    if (period_ms && millis() - prev_ms >= period_ms) {
+  void run(unsigned long period_ms = 100)
+  {
+    if (period_ms && millis() - prev_ms >= period_ms)
+    {
       // Cumulative delay correction (keep allignment)
       int drift_ms = (millis() - prev_ms - period_ms) % period_ms;
       prev_ms = millis() - drift_ms;
-      if (runCallback) runCallback();
+      if (runCallback)
+        runCallback();
     }
   }
 };
@@ -42,9 +47,19 @@ public:
  * @note For function pointers (support lambda via twice pointer in params)
  * @see CycleComp
  */
-template<typename Ret, typename... Args>
-auto makeCycleComp(Ret (*sCb)(Args...), std::function<void()> rCb) -> CycleComp<Args...> {
-    return CycleComp<Args...>(sCb, rCb);
+template <typename Ret, typename... Args>
+auto makeCycleComp(Ret (*sCb)(Args...), std::function<void()> rCb) -> CycleComp<Args...>
+{
+  return CycleComp<Args...>(sCb, rCb);
+}
+
+/**
+ * @copybrief makeCycleComp - type safe factory
+ * @note No setup config
+ */
+inline auto makeCycleComp(std::function<void()> rCb) -> CycleComp<>
+{
+  return CycleComp<>([](){}, rCb); // empty lambda
 }
 
 #endif // CYCLE_H

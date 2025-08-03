@@ -3,6 +3,10 @@
 
 #include "cycle.h"
 
-extern decltype(manager) manager;
+struct ManagerConfig
+{
+};
+
+extern CycleComp<> manager;
 
 #endif

@@ -4,7 +4,8 @@ AppState state = {
     .display = {
         .isOn = false,
         .brightness = 128,
-        .view = 0
+        .view = 0,
+        .mode = UIMode::Navigation
     },
     .scan = {
         .motorSpeed = 0,
