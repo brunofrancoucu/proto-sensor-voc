@@ -12,10 +12,35 @@ namespace
     void cycle()
     {
         // Periodic tasks can be added here
-        if (state.input.RGT.pressed && !state.input.RGT.usedOnce)
+        if (state.input.RGT.pressed)
         {
-            state.display.next();
-            state.input.RGT.usedOnce = true;
+            if (state.display.mode == UIMode::Navigation && !state.input.RGT.usedOnce) {
+                // Next View
+                state.display.next();
+                state.input.RGT.usedOnce = true;
+            }
+        }
+        if (state.input.LFT.pressed)
+        {
+            if (state.display.mode == UIMode::Navigation && !state.input.LFT.usedOnce) {
+                // Previous View
+                state.display.prev();
+                state.input.LFT.usedOnce = true;
+            }
+        }
+        if (state.input.MID.pressed && !state.input.MID.usedOnce) 
+        {
+            if (state.display.mode == UIMode::Navigation) {
+                // Adjustment Mode
+                state.display.mode = UIMode::Adjustment;
+                state.input.MID.usedOnce = true;
+            } else if (state.display.mode == UIMode::Adjustment) {
+                // Navigation Mode
+                state.display.mode = UIMode::Navigation;
+                state.input.MID.usedOnce = true;
+            } else {
+                // Handle notification
+            }
         }
     }
 }
