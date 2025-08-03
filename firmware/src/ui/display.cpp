@@ -5,10 +5,10 @@
 // Internal
 #include "state.h"
 
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
+#define OLED_WIDTH 128
+#define OLED_HEIGHT 64
 
-static Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+static Adafruit_SSD1306 oled(OLED_WIDTH, OLED_HEIGHT, &Wire, -1);
 
 namespace {
     void initSetup(DisplayPins pins)

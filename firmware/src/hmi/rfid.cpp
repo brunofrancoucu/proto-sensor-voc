@@ -3,7 +3,7 @@
 #include <MFRC522.h>
 // Internal
 #include "drivers/buzzer.h"
-#include "format.h"
+#include "helpers/format.h"
 
 namespace {
   MFRC522* mfrcid = nullptr;

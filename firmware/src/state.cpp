@@ -1,7 +1,7 @@
 #include "state.h"
 
 AppState state = {
-    .screen = {
+    .display = {
         .isOn = false,
         .brightness = 128,
         .view = 0

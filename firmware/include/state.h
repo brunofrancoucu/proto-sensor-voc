@@ -2,12 +2,33 @@
 #define STATE_H
 #include <Arduino.h>
 
-struct ScreenState {
+struct DisplayState {
     bool isOn;
     int brightness;
     // interface
     int view;
+
+    void next(int maxViews = 3) {
+        view = (view + 1) % maxViews;
+    }
+
+    void prev(int maxViews = 3) {
+        view = (view - 1 + maxViews) % maxViews;
+    }
 };
+
+struct InputButton {
+    bool pressed = false;
+    unsigned long down_ms = 0;
+};
+
+struct InputState {
+    InputButton LFT;
+    InputButton MID;
+    InputButton RGT;
+};
+
+// Settings (vol)
 
 struct AirState {
   float temp;
@@ -24,9 +45,10 @@ struct ScanState {
 
 struct AppState
 {
-    ScreenState screen;
+    DisplayState display;
     ScanState scan;
     AirState air;
+    InputState input;
 };
 
 extern AppState state;
