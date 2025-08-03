@@ -11,5 +11,6 @@ void updateButton(uint8_t pin, InputButton& button) {
         button.down_ms = millis();
     } else {
         button.down_ms = 0;
+        button.usedOnce = false;
     }
 }

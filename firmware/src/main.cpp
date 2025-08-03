@@ -36,10 +36,11 @@ void loop()
 {
   // Loop components
   sensors.run(2000); // 250ms DHT (false on UI)
-  display.run(33.33); // 30 FPS
   actuators.run();
   spot.run();
-  buzzer.run();
   rfid.run();
+  // Interface
   buttons.run();
+  display.run(33.33); // 30 FPS
+  buzzer.run();
 }

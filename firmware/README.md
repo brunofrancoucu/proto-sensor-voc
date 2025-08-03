@@ -1,5 +1,11 @@
 # ESP32 Dev Module (Instalacion)
 
+## Estructura
+```
+|-> hmi, Human Machine Interface
+|-> core (Inputs), manager (fire subsequent actions)
+|-> ui (Outputs), user interface
+```
 ## Requisitios
 
 - VScode extension Arduino por moozzyk
