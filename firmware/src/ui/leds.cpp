@@ -6,7 +6,7 @@ namespace {
 
     void initSetup(LedPins confPins)
     {
-        pins = std::move(confPins);
+        pins = confPins;
         pinMode(pins.GRN, OUTPUT);
         digitalWrite(pins.GRN, LOW);
     }

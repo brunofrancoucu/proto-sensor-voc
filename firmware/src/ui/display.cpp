@@ -14,12 +14,13 @@ namespace {
         Wire.begin(pins.SDA, pins.SCL);
         oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
         welcome::paint(oled);
+        oled.display();
     }
     
     void cycle()
     {
         std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen", "Comunicarse"};
-        int& act = state.display.activeOpt;
+        int &act = state.display.activeOpt;
 
         oled.clearDisplay();
         oled.setCursor(0, 0);
@@ -59,9 +60,10 @@ namespace {
                     .temp = static_cast<int>(state.air.temp),
                     .hum = static_cast<int>(state.air.hum)
                 });
-            break;
-
+                break;
             }
+
+            break;
         }
         oled.display();
     }
