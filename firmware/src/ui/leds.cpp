@@ -3,12 +3,16 @@
 namespace {
     LedPins pins;
     static unsigned long lastBlink = 0;
+    static bool state = false;
+    static uint8_t brightness;
 
-    void initSetup(LedPins confPins)
+    void initSetup(LedPins confPins = {2, 128})
     {
         pins = confPins;
+        pins.brightness = confPins.brightness ? confPins.brightness : 128;
+
         pinMode(pins.GRN, OUTPUT);
-        digitalWrite(pins.GRN, LOW);
+        analogWrite(pins.GRN, 0);
     }
 
     void cycle()
@@ -16,7 +20,9 @@ namespace {
         // Example: Blink GREEN LED every second
         if (millis() - lastBlink >= 1000) {
             lastBlink = millis();
-            digitalWrite(pins.GRN, !digitalRead(pins.GRN));
+            analogWrite(pins.GRN, pins.brightness);
+        } else {
+            analogWrite(pins.GRN, 0);
         }
     }
 }
