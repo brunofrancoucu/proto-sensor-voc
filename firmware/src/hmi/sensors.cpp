@@ -30,7 +30,7 @@ namespace {
         Serial.println("Temp: " + String(temp_raw) + " C | Hum: " + String(hum_raw) + " %");
         Serial.println("MQ: " + String(mq_volt) + " V | Aire: " + calidad);
 
-        if (isnan(state.air.temp) && isnan(state.air.hum))
+        if (!isnan(state.air.temp) && !isnan(state.air.hum))
         {
             // Update global state
             state.air.temp = temp_raw;
