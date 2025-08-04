@@ -20,8 +20,10 @@ void setup()
   randomSeed(analogRead(0)); // use entropy
   delay(200);
 
-  spot.setup({.SSID = "E5-VOC-" + String(random(1000, 9999)),
-              .PWD = String(random(10004321, 99994321))});
+  spot.setup({
+    .SSID = "E5-VOC-" + String(random(1000, 9999)),
+    .PWD = String(random(10004321, 99994321))
+  });
   sensors.setup({.MQ = 35, .DHT = 25});
   actuators.setup({.REL = 26, .BTN = 21});
   rfid.setup({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
