@@ -19,3 +19,18 @@ void printDec(byte *buffer, byte bufferSize) {
     Serial.print(buffer[i], DEC);
   }
 }
+
+/**
+ * @brief Transform millis() into clock time format (HH:MM).
+ * @param millis Time in milliseconds.
+ * @param gmt GMT hours
+ */
+String msToClock(unsigned long millis, int gmt) {
+  unsigned long totalSeconds = millis / 1000;
+  unsigned long hours = (totalSeconds / 3600 + gmt) % 24; // Wrap around after 24 hours
+  unsigned long minutes = (totalSeconds / 60) % 60;
+
+  char buffer[6];
+  snprintf(buffer, sizeof(buffer), "%02lu:%02lu", hours, minutes);
+  return String(buffer);
+}

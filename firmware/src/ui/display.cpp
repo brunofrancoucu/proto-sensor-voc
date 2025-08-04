@@ -5,6 +5,7 @@
 // Internal
 #include "ui/components.h"
 #include "state.h"
+#include "helpers/format.h"
 
 static Adafruit_SSD1306 oled(128, 64, &Wire, -1);
 
@@ -27,7 +28,7 @@ namespace {
         oled.setCursor(0, 0);
     
         navbar::paint(oled, {
-            .clock = "12:34",
+            .clock = std::string(msToClock(millis()).c_str()),
             .alert = {.blink = true},
             .ap = {.blink = true},
             .wifi = {.blink = false},
