@@ -11,7 +11,7 @@ enum UIMode
     Notification
 };
 
-struct DisplayState
+struct UIState
 {
     UIMode mode;
     int activeOpt; // VIEW
@@ -95,7 +95,7 @@ struct ScanState
 
 struct AppState
 {
-    DisplayState display;
+    UIState display;
     ScanState scan;
     AirState air;
     InputState input;
