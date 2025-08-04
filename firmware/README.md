@@ -33,6 +33,7 @@ pio run -t upload
 pio run --target uploadfs 
 pio device monitor
 pio device list
+pio run -t reset
 # Format
 pio run -t clean
 ``` 
