@@ -13,10 +13,17 @@ namespace welcome {
 // UI Components for the display
 
 namespace navbar {
+    struct Icon {
+        bool show;
+        bool blink;
+    };
+
     struct Config {
         std::string clock;
-        bool alertIcon;
-        bool wifiIcon;
+        Icon alert;
+        Icon ap;
+        Icon wifi;
+        Icon bt;
     };
     
     void paint(Adafruit_SSD1306& oled, Config config);

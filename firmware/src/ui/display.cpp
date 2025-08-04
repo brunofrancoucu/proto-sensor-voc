@@ -28,8 +28,10 @@ namespace {
     
         navbar::paint(oled, {
             .clock = "12:34",
-            .alertIcon = false,
-            .wifiIcon = true
+            .alert = {.blink = true},
+            .ap = {.blink = true},
+            .wifi = {.blink = false},
+            .bt = {.blink = false}
         });
 
         switch (state.display.mode) 
@@ -37,8 +39,8 @@ namespace {
         case UIMode::Navigation:
 
             btmbar::paint(oled, {
-                .txtL = labels[(foc + labels.size() - 1) % (labels.size() - 1)],
-                .txtR = labels[(foc + labels.size() + 1) % (labels.size() - 1)]
+                .txtL = labels[(foc + labels.size() - 1) % (labels.size())],
+                .txtR = labels[(foc + labels.size() + 1) % (labels.size())]
             });
             
             menu::paint(oled, {
