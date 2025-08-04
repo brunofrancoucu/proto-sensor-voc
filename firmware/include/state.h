@@ -63,7 +63,10 @@ struct InputButton
     bool pressed = false;
     // Used once in current cycle
     bool once = false;
-    unsigned long down_ms = 0;
+    // Accelerate on hold
+    unsigned long interval_ms = 400;
+    unsigned long prev_ms = 0;
+    unsigned long hold_ms = 0;
 };
 
 struct InputState

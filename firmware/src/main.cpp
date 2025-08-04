@@ -10,7 +10,6 @@
 #include "hmi/sensors.h"
 #include "hmi/rfid.h"
 #include "core/buttons.h"
-#include "core/manager.h"
 #include "ui/display.h"
 #include "ui/buzzer.h"
 #include "ui/leds.h"
@@ -28,7 +27,7 @@ void setup()
   rfid.setup({.SDA = 5, .SCK = 18, .MOSI = 23, .MISO = 19, .RST = 21});
   // Core (Inputs)
   buttons.setup({.LFT = 17, .MID = 16, .RGT = 4});
-  manager.setup();
+  // manager.setup();
   // Interface
   display.setup({.SDA = 33, .SCL = 32});
   buzzer.setup({.BZR = 22, .VOL = 128});
@@ -42,8 +41,8 @@ void loop()
   actuators.run();
   rfid.run();
   // Core (inputs)
-  buttons.run();
-  manager.run();
+  buttons.run(50);
+  // manager.run();
   // Interface
   display.run(33.33); // 30 FPS
   buzzer.run();

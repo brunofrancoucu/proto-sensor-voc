@@ -20,12 +20,14 @@ namespace {
 
     void cycle()
     {
+        DisplayState& display = state.display;
+
         /**
          * Workflow: pressed event within module / comp (gamified)
         */
-        updateButton(pins.LFT, state.input.LFT);
-        updateButton(pins.MID, state.input.MID);
-        updateButton(pins.RGT, state.input.RGT);
+        updateButton(pins.LFT, state.input.LFT, [](){ display.prev(); });
+        updateButton(pins.MID, state.input.MID, [](){ display.select(); });
+        updateButton(pins.RGT, state.input.RGT, [](){ display.next(); });
     }
 }
 
