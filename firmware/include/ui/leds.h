@@ -7,6 +7,7 @@
 struct LedPins
 {
     uint8_t GRN;
+    // Default brightness
     uint8_t brightness;
 };
 

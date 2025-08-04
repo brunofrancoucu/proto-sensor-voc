@@ -33,6 +33,8 @@ pio run -t upload
 pio run --target uploadfs 
 pio device monitor
 pio device list
+# Format
+pio run -t clean
 ``` 
 gzip files
 ```bash
