@@ -58,4 +58,12 @@ namespace sensors {
     void paint(Adafruit_SSD1306& oled, Config config);
 }
 
+namespace hotspot {
+    struct Config {
+        std::string SSID;
+        std::string _PWD;
+    };
+
+    void paint(Adafruit_SSD1306& oled, Config config);
+}
 #endif

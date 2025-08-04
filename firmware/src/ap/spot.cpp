@@ -30,6 +30,10 @@ namespace {
     setupRoutes();
     server.begin();
   
+    state.hotspot.SSID = config.SSID;
+    state.hotspot._PWD = config.PWD;
+    state.hotspot.isRunning = true;
+    
     Serial.print("Captive Portal,DNS & AP-IP: " + String(WiFi.softAPIP()));
     Serial.print("SSID" + String(config.SSID) + "PWD: " + String(config.PWD));
   }

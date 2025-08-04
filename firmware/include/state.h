@@ -85,11 +85,18 @@ struct AirState
     float mq2;
     float mq135;
     String status;
+    // measure method
 };
 
 struct ScanState
 {
     int motorSpeed; // on off, relay
+    bool isRunning;
+};
+
+struct Hotspot {
+    String SSID;
+    String _PWD;
     bool isRunning;
 };
 
@@ -99,6 +106,7 @@ struct AppState
     ScanState scan;
     AirState air;
     InputState input;
+    Hotspot hotspot;
 };
 
 extern AppState state;
