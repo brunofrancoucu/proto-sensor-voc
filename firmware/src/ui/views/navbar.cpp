@@ -17,7 +17,7 @@ static Blink bt;
 /** @brief Custom blink effect for icons.
  * @note (defaults to no blink, ON).
  */
-static void blinkIf(bool condition, Blink& icon, std::function<void()> drawCb, uint8_t offset = 0) {
+static void blinkIf(bool condition, Blink& icon, std::function<void()> drawCb, unsigned long offset = 0) {
     if (condition) {
         ((millis() + offset) % 600 < 200) && (drawCb(), 0); // 200ms on 400ms off
     } else {
@@ -33,11 +33,11 @@ void navbar::paint(Adafruit_SSD1306& oled, Config config) {
     oled.drawLine(0, 9, 128, 9, 1);
 
     // Battery
-    blinkIf(config.bt.blink, bt, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);});
+    blinkIf(config.bt.blink, bt, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
     // Alert
-    blinkIf(config.alert.blink, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); });
+    blinkIf(config.alert.blink, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
     // BLE_beacon
-    blinkIf(config.wifi.blink, wifi, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); });
+    blinkIf(config.wifi.blink, wifi, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); }, 300);
     // Rpc_active
-    blinkIf(config.ap.blink, ap, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); });
+    blinkIf(config.ap.blink, ap, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); }, 400);
 }
