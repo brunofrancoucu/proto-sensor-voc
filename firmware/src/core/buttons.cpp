@@ -20,7 +20,7 @@ namespace {
 
     void cycle()
     {
-        DisplayState& display = state.display;
+        UIState& display = state.display;
 
         /**
          * Workflow: pressed event within module / comp (gamified)
