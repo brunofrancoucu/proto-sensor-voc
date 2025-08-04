@@ -22,27 +22,25 @@ void menu::paint(Adafruit_SSD1306& oled, Config config) {
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
-    Serial.println("Focused: " + String(config.focused));
     oled.getTextBounds(config.labels[config.focused].c_str(), 0, 0, &x1, &y1, &w, &h);
     // Draw
-    Serial.println("Stage: " + String(2));
-    int rectWidth = iconWidth + w + 4 + 8; // txt + gap + padding
-    oled.drawRoundRect(screenWidth/2 - rectWidth/2, 20, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    oled.drawBitmap(screenWidth/2 - iconWidth/2 + 4, 24, icons[config.focused], 13, 16, 1);
-    oled.setCursor(screenWidth/2 + w/2 + iconWidth + 8, 28); // 64/2 - 8/2
+    int gap = 8;
+    int pdg = 8;
+    int rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
+    oled.drawRoundRect((screenWidth - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
+    oled.drawBitmap((screenWidth - rectWidth)/2 + pdg, 23, icons[config.focused], 16, 16, 1);
+    oled.setCursor((screenWidth - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
     oled.print(config.labels[config.focused].c_str());
     
-    Serial.println("Stage: " + String(3));
     // Icons Left
     for (size_t i = 0; i < labelsLen; ++i) {
-        int posX = screenWidth / 2 - rectWidth / 2 - i * (iconWidth + 6) - 8 - iconWidth;
-        oled.drawBitmap(posX, 24, icons[(config.focused - i - 1 + labelsLen) % (labelsLen - 1)], 16, 16, 1);
+        int posX = screenWidth / 2 - rectWidth / 2 - i * (iconWidth + 10) - 8 - iconWidth;
+        oled.drawBitmap(posX, 23, icons[(config.focused - i - 1 + labelsLen) % labelsLen], 16, 16, 1);
     }
     
     // Icons Right
     for (size_t i = 0; i < labelsLen; ++i) {
-        int posX = screenWidth / 2 + rectWidth / 2 + i * (iconWidth + 6) + 8;
-        oled.drawBitmap(posX, 24, icons[(config.focused + i + 1) % (labelsLen - 1)], 16, 16, 1);
+        int posX = screenWidth / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
+        oled.drawBitmap(posX, 23, icons[(config.focused + i + 1) % labelsLen], 16, 16, 1);
     }
-    Serial.println("Stage: " + String(4));
 }

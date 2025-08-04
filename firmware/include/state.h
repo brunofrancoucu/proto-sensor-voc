@@ -16,14 +16,13 @@ struct DisplayState
     UIMode mode;
     int activeOpt; // VIEW
     int focusedOpt; // hovered selection
-    // std::vector<std::vector<int>> matrix;
     std::vector<int> matrix;
 
-    void next(int maxOptions = 64) {
+    void next(int maxOptions = 5) {
         focusedOpt = (focusedOpt + 1) % maxOptions;
     }
     
-    void prev(int maxOptions = 64) {
+    void prev(int maxOptions = 5) {
         focusedOpt = (focusedOpt - 1 + maxOptions) % maxOptions;
     }
 

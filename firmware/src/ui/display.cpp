@@ -19,12 +19,13 @@ namespace {
     
     void cycle()
     {
-        std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen", "Comunicarse"};
+        std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen"};
         int &act = state.display.activeOpt;
+        int &foc = state.display.focusedOpt;
 
         oled.clearDisplay();
         oled.setCursor(0, 0);
-
+    
         navbar::paint(oled, {
             .clock = "12:34",
             .alertIcon = false,
@@ -36,14 +37,14 @@ namespace {
         case UIMode::Navigation:
 
             btmbar::paint(oled, {
-                .txtL = labels[(act + labels.size() - 1) % labels.size()],
-                .txtR = labels[(act + labels.size() + 1) % labels.size()]
+                .txtL = labels[(foc + labels.size() - 1) % (labels.size() - 1)],
+                .txtR = labels[(foc + labels.size() + 1) % (labels.size() - 1)]
             });
             
             menu::paint(oled, {
                 // icons = [bitmaps]
                 .labels = labels,
-                .focused = act,
+                .focused = foc,
             });
 
             break;
