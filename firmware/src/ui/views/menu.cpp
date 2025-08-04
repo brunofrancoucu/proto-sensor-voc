@@ -15,18 +15,18 @@ static const std::vector<const unsigned char*> icons = {
 };
 
 void menu::paint(Adafruit_SSD1306& oled, Config config) {
-    int iconWidth = 16;
-    int screenWidth = oled.width();
-    const int &labelsLen = config.labels.size();
+    const uint8_t iconWidth = 16;
+    const uint8_t screenWidth = oled.width();
+    const uint8_t &labelsLen = config.labels.size();
 
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
     oled.getTextBounds(config.labels[config.focused].c_str(), 0, 0, &x1, &y1, &w, &h);
     // Draw
-    int gap = 8;
-    int pdg = 8;
-    int rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
+    const uint8_t gap = 8;
+    const uint8_t pdg = 8;
+    const uint8_t rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
     oled.drawRoundRect((screenWidth - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
     oled.drawBitmap((screenWidth - rectWidth)/2 + pdg, 23, icons[config.focused], 16, 16, 1);
     oled.setCursor((screenWidth - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
