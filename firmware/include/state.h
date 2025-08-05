@@ -31,8 +31,8 @@ struct UIState
         matrix[activeOpt] = focusedOpt;
 
         // Internal state options
-        focusedOpt = matrix[focusedOpt]; // enter adj val
         activeOpt = focusedOpt;
+        focusedOpt = matrix[focusedOpt]; // enter adj val
 
         // Interface View
         switch (mode)

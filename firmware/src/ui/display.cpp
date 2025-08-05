@@ -58,6 +58,7 @@ namespace {
                 .txtR = "BAJAR"
             });
 
+
             switch (state.display.activeOpt) {
                 case 0: // Sensors
                     sensors::paint(oled, {
@@ -72,7 +73,7 @@ namespace {
                 });
                 break;
                 case 2: // Vol Bright
-                //     sensors::paint(oled, {
+                //    sensors::paint(oled, {
                 //     .temp = static_cast<int>(22),
                 //     .hum = static_cast<int>(33)
                 // });
@@ -84,6 +85,10 @@ namespace {
                     });
                 break;
                 case 4: // Volume
+                //   sensors::paint(oled, {
+                //   .temp = static_cast<int>(22),
+                //   .hum = static_cast<int>(33)
+                // });
                 break;
             }
 
