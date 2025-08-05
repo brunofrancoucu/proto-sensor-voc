@@ -9,8 +9,8 @@ static const unsigned char PROGMEM image_weather_temperature_bits[] = {0x1c,0x00
 
 void sensors::paint(Adafruit_SSD1306& oled, Config config) {
     paintStatBox(oled, image_weather_windsock_co_bits, String(state.air.mq135, 0), 8, 16);
-    paintStatBox(oled, image_weather_windsock_et_bits, String(state.air.mq2, 0), oled.width()/2 + 8, 16);
+    paintStatBox(oled, image_weather_windsock_et_bits, String(state.air.mq2, 0), oled.width()/2, 16);
     
-    paintStatBox(oled, image_Dehumidify_hvr_bits, String(state.air.hum,0)+"%", 8, 16 + 14 + 4);
-    paintStatBox(oled, image_weather_temperature_bits, String(state.air.temp,1)+" C", oled.width()/2 + 8, 16 + 14 + 4);
+    paintStatBox(oled, image_Dehumidify_hvr_bits, String(state.air.hum,0)+" %", 8, 16 + 14 + 4);
+    paintStatBox(oled, image_weather_temperature_bits, String(state.air.temp,1)+" C", oled.width()/2, 16 + 14 + 4);
 }
