@@ -4,6 +4,7 @@
 #include <Wire.h>
 // Internal
 #include "ui/components.h"
+#include "ui/screens.h"
 #include "state.h"
 #include "helpers/format.h"
 
@@ -34,6 +35,7 @@ namespace {
             .wifi = {.blink = false},
             .bt = {.blink = false}
         });
+
 
         switch (state.display.mode) 
         {

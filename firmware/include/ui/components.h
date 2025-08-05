@@ -4,13 +4,7 @@
 #include <Adafruit_SSD1306.h>
 #include <vector>
 
-// Welcome
-
-namespace welcome {
-    void paint(Adafruit_SSD1306& oled);
-};
-
-// UI Components for the display
+// UI Layout Components for the display
 
 namespace navbar {
     struct Icon {
@@ -47,23 +41,17 @@ namespace menu {
     void paint(Adafruit_SSD1306& oled, Config config);
 }
 
-// Adjustment Views
-
-namespace sensors {
+// Handle active screen (ref. screens.h)
+namespace screen {
     struct Config {
-        int temp;
-        int hum;
+        int active;
     };
-
+    
     void paint(Adafruit_SSD1306& oled, Config config);
 }
 
-namespace hotspot {
-    struct Config {
-        std::string SSID;
-        std::string _PWD;
-    };
+// Atom Components (Stat)
 
-    void paint(Adafruit_SSD1306& oled, Config config);
-}
+void paintStatBox(Adafruit_SSD1306& oled, const unsigned char* icon, const String& txt, int x, int y);
+
 #endif
