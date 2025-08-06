@@ -1,8 +1,8 @@
 #ifndef UI_COMPONENTS_H
 #define UI_COMPONENTS_H
 
-#include <Adafruit_SSD1306.h>
 #include <vector>
+#include <Arduino.h>
 
 // UI Layout Components for the display
 
@@ -13,35 +13,35 @@ namespace navbar {
     };
 
     struct Config {
-        std::string clock;
+        String clock;
         Icon alert;
         Icon ap;
         Icon wifi;
         Icon bt;
     };
-    
-    void paint(Adafruit_SSD1306& oled, Config config);
+
+    void paint(Config config);
 }
 
 namespace btmbar {
     struct Config {
-        std::string txtL;
-        std::string txtR;
+        String txtL;
+        String txtR;
     };
 
-    void paint(Adafruit_SSD1306& oled, Config config);
+    void paint(Config config);
 }
 
 namespace menu {
-    void paint(Adafruit_SSD1306& oled);
+    void paint();
 }
 
-namespace dashboard {    
-    void paint(Adafruit_SSD1306& oled);
+namespace dashboard {
+    void paint();
 }
 
 // Atom Components (Stat)
 
-void paintStatBox(Adafruit_SSD1306& oled, const unsigned char* icon, const String& txt, int x, int y);
+void paintStatBox(const unsigned char* icon, const String& txt, int x, int y);
 
 #endif

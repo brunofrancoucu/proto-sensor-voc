@@ -1,30 +1,37 @@
 #ifndef SCREENS_H
 #define SCREENS_H
 
-#include <Adafruit_SSD1306.h>
+#include <Arduino.h>
 
 // Screens (Adjustment views, Welcome)
 
 namespace welcome {
-    void paint(Adafruit_SSD1306& oled);
+    void paint();
 };
 
 namespace sensors {
     struct Config {
-        int temp;
-        int hum;
+        float temp;
+        float hum;
     };
 
-    void paint(Adafruit_SSD1306& oled, Config config);
+    void paint(Config config);
 }
 
 namespace hotspot {
     struct Config {
-        std::string SSID;
-        std::string _PWD;
+        String SSID;
+        String _PWD;
     };
 
-    void paint(Adafruit_SSD1306& oled, Config config);
+    void paint(Config config);
+}
+
+namespace settings {
+    struct Config {
+        int volume; // %
+    };
+    void paint(Config config);
 }
 
 #endif // SCREENS_H

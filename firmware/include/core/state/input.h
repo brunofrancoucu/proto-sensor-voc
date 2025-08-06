@@ -17,6 +17,8 @@ struct InputState {
     InputButton LFT;
     InputButton MID;
     InputButton RGT;
+
+    // TODO: action
 };
 
 #endif // STATE_INPUT_H

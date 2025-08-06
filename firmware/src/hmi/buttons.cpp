@@ -25,9 +25,9 @@ namespace {
         /**
          * Workflow: pressed event within module / comp (gamified)
         */
-        updateButton(pins.LFT, state.input.LFT, [](){ display.prev(); });
+        updateButton(pins.LFT, state.input.LFT, [](){ display.nav(Nav::PREV); });
         updateButton(pins.MID, state.input.MID, [](){ display.select(); });
-        updateButton(pins.RGT, state.input.RGT, [](){ display.next(); });
+        updateButton(pins.RGT, state.input.RGT, [](){ display.nav(Nav::NEXT); });
     }
 }
 
