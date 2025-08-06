@@ -22,7 +22,6 @@ static const std::vector<String>& labels = state.display.content.labels;
 static const int& foc = state.display.focusedOpt;
 // Interface constants
 static const uint8_t iconWidth = 16;
-static const uint8_t screenWidth = oled.width();
 
 void menu::paint() {
     // Selected
@@ -33,20 +32,20 @@ void menu::paint() {
     const uint8_t gap = 8;
     const uint8_t pdg = 8;
     const uint8_t rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
-    oled.drawRoundRect((screenWidth - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    oled.drawBitmap((screenWidth - rectWidth)/2 + pdg, 23, icons[foc], 16, 16, 1);
-    oled.setCursor((screenWidth - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
+    oled.drawRoundRect((SSD_WIDTH - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
+    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, icons[foc], 16, 16, 1);
+    oled.setCursor((SSD_WIDTH - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
     oled.print(labels[foc]);
     
     // Icons Left
     for (size_t i = 0; i < labels.size(); ++i) {
-        int posX = screenWidth / 2 - rectWidth / 2 - i * (iconWidth + 10) - 8 - iconWidth;
+        int posX = SSD_WIDTH / 2 - rectWidth / 2 - i * (iconWidth + 10) - 8 - iconWidth;
         oled.drawBitmap(posX, 23, icons[(foc - i - 1 + labels.size()) % labels.size()], 16, 16, 1);
     }
     
     // Icons Right
     for (size_t i = 0; i < labels.size(); ++i) {
-        int posX = screenWidth / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
+        int posX = SSD_WIDTH / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
         oled.drawBitmap(posX, 23, icons[(foc + i + 1) % labels.size()], 16, 16, 1);
     }
 }

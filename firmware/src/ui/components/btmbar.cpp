@@ -9,14 +9,13 @@ static const unsigned long gap = 2;
 static const unsigned long iconsWidth = 9 + 3*2 + 4*2;
 
 static auto& oled = state.display.oled;
-static const int screenWidth = oled.width();
 
 void btmbar::paint(Config config) {
     // Align Center txt to slot L
     int16_t x1, y1;
     uint16_t wL, h1;
     oled.getTextBounds(config.txtL, 0, 0, &x1, &y1, &wL, &h1);
-    const uint8_t iconsLeftX = (screenWidth - iconsWidth)/2 - gap;
+    const uint8_t iconsLeftX = (SSD_WIDTH - iconsWidth)/2 - gap;
     // Layer 13 copy
     oled.setCursor(iconsLeftX/2 - wL/2, 56);
     oled.print(config.txtL);
@@ -25,9 +24,9 @@ void btmbar::paint(Config config) {
     int16_t x2, y2;
     uint16_t wR, h2;
     oled.getTextBounds(config.txtR, 0, 0, &x2, &y2, &wR, &h2);
-    const uint8_t iconsRightX = (screenWidth + iconsWidth)/2 + gap * 2;
+    const uint8_t iconsRightX = (SSD_WIDTH + iconsWidth)/2 + gap * 2;
     // Layer 13
-    oled.setCursor(iconsRightX + (screenWidth - iconsRightX)/2 - wR/2, 56);
+    oled.setCursor(iconsRightX + (SSD_WIDTH - iconsRightX)/2 - wR/2, 56);
     oled.print(config.txtR);
     
     // Ok_btn

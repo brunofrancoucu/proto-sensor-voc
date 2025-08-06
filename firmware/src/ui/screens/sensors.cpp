@@ -12,8 +12,8 @@ static auto& oled = state.display.oled;
 
 void sensors::paint(Config config) {
     paintStatBox(image_weather_windsock_co_bits, String(state.air.mq135, 0), 8, 16);
-    paintStatBox(image_weather_windsock_et_bits, String(state.air.mq2, 0), oled.width()/2, 16);
+    paintStatBox(image_weather_windsock_et_bits, String(state.air.mq2, 0), SSD_WIDTH/2, 16);
     
     paintStatBox(image_Dehumidify_hvr_bits, String(state.air.hum,0)+" %", 8, 16 + 14 + 4);
-    paintStatBox(image_weather_temperature_bits, String(state.air.temp,1)+" C", oled.width()/2, 16 + 14 + 4);
+    paintStatBox(image_weather_temperature_bits, String(state.air.temp,1)+" C", SSD_WIDTH/2, 16 + 14 + 4);
 }

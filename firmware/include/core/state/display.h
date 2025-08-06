@@ -4,6 +4,9 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 
+#define SSD_WIDTH 128
+#define SSD_HEIGHT 64
+
 enum UIMode {
     Navigation,
     Dashboard,
@@ -22,7 +25,7 @@ struct Content {
 enum Nav { NEXT = 1, PREV = -1 };
 
 struct UIState {
-    Adafruit_SSD1306 oled{128, 64, &Wire, -1}; // Initialize (same reference at aliases)
+    Adafruit_SSD1306 oled{SSD_WIDTH, SSD_HEIGHT, &Wire, -1}; // Initialize (same reference at aliases)
     Content content;
     // Interaction
     UIMode mode = UIMode::Navigation;
