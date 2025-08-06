@@ -1,7 +1,7 @@
-#include "helpers/interface.h"
+#include "ui/molecules.h"
 
 /**
- * @brief Interface Component, Statistic Module
+ * @brief Molecule Component, Statistic Module
 */
 void paintStatBox(Adafruit_SSD1306& oled, const unsigned char* icon, const String& txt, int x, int y) {
     oled.drawBitmap(x, y, icon, 13, 14, 1);

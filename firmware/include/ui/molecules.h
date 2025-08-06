@@ -1,5 +1,5 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef MOLECULES_H
+#define MOLECULES_H
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
