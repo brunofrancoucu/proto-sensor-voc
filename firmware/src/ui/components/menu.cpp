@@ -1,5 +1,6 @@
 #include "ui/components.h"
 // Navigation menu
+#include "state.h"
 
 static const unsigned char PROGMEM image_menu_settings_gear_bits[] = {0x03,0xc0,0x12,0x48,0x2c,0x34,0x40,0x02,0x23,0xc4,0x24,0x24,0xc8,0x13,0x88,0x11,0x88,0x11,0xc8,0x13,0x24,0x24,0x23,0xc4,0x40,0x02,0x2c,0x34,0x12,0x48,0x03,0xc0};
 static const unsigned char PROGMEM image_monitor_bits[] = {0x00,0x00,0xff,0xff,0x80,0x01,0xbf,0xfd,0xa0,0x05,0xa0,0x05,0xa0,0x05,0xa0,0x05,0xa0,0x05,0xbf,0xfd,0x80,0x01,0xff,0xff,0x03,0xc0,0x03,0xc0,0x0f,0xf0,0x00,0x00};
@@ -15,33 +16,36 @@ static const std::vector<const unsigned char*> icons = {
     image_volume_low_bits, // Volume
 };
 
-void menu::paint(Adafruit_SSD1306& oled, Config config) {
+void menu::paint(Adafruit_SSD1306& oled) {
+    // Reference aliases
+    const std::vector<std::string>& labels = state.display.content.labels;
+    int& foc = state.display.focusedOpt;
+    // Interface constants
     const uint8_t iconWidth = 16;
     const uint8_t screenWidth = oled.width();
-    const uint8_t &labelsLen = config.labels.size();
 
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
-    oled.getTextBounds(config.labels[config.focused].c_str(), 0, 0, &x1, &y1, &w, &h);
+    oled.getTextBounds(labels[foc].c_str(), 0, 0, &x1, &y1, &w, &h);
     // Draw
     const uint8_t gap = 8;
     const uint8_t pdg = 8;
     const uint8_t rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
     oled.drawRoundRect((screenWidth - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    oled.drawBitmap((screenWidth - rectWidth)/2 + pdg, 23, icons[config.focused], 16, 16, 1);
+    oled.drawBitmap((screenWidth - rectWidth)/2 + pdg, 23, icons[foc], 16, 16, 1);
     oled.setCursor((screenWidth - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
-    oled.print(config.labels[config.focused].c_str());
+    oled.print(labels[foc].c_str());
     
     // Icons Left
-    for (size_t i = 0; i < labelsLen; ++i) {
+    for (size_t i = 0; i < labels.size(); ++i) {
         int posX = screenWidth / 2 - rectWidth / 2 - i * (iconWidth + 10) - 8 - iconWidth;
-        oled.drawBitmap(posX, 23, icons[(config.focused - i - 1 + labelsLen) % labelsLen], 16, 16, 1);
+        oled.drawBitmap(posX, 23, icons[(foc - i - 1 + labels.size()) % labels.size()], 16, 16, 1);
     }
     
     // Icons Right
-    for (size_t i = 0; i < labelsLen; ++i) {
+    for (size_t i = 0; i < labels.size(); ++i) {
         int posX = screenWidth / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
-        oled.drawBitmap(posX, 23, icons[(config.focused + i + 1) % labelsLen], 16, 16, 1);
+        oled.drawBitmap(posX, 23, icons[(foc + i + 1) % labels.size()], 16, 16, 1);
     }
 }

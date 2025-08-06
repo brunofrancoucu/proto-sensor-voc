@@ -17,16 +17,19 @@ namespace {
         oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
         welcome::paint(oled);
         oled.display();
+
+        // Initialize variables & mem
     }
     
     void cycle()
     {
-        std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen"};
-        int &act = state.display.activeOpt;
-        int &foc = state.display.focusedOpt;
-
         oled.clearDisplay();
         oled.setCursor(0, 0);
+
+        // Reference aliases 
+        int &act = state.display.activeOpt;
+        int &foc = state.display.focusedOpt;
+        UIMode& mode = state.display.mode;
     
         navbar::paint(oled, {
             .clock = std::string(msToClock(millis()).c_str()),
@@ -36,67 +39,16 @@ namespace {
             .bt = {.blink = false}
         });
 
+        (mode == UIMode::Navigation) && ([&](){ menu::paint(oled); }, 0);
+        (mode == UIMode::Dashboard) && ([&](){ dashboard::paint(oled); }, 0);
+        (mode == UIMode::Notification) && Serial.println("Mode: Notification");
 
-        switch (state.display.mode) 
-        {
-        case UIMode::Navigation:
-
-            btmbar::paint(oled, {
-                .txtL = labels[(foc + labels.size() - 1) % (labels.size())],
-                .txtR = labels[(foc + labels.size() + 1) % (labels.size())]
-            });
-            
-            menu::paint(oled, {
-                // icons = [bitmaps]
-                .labels = labels,
-                .focused = foc,
-            });
-
-            break;
-        case UIMode::Adjustment:
-
-            btmbar::paint(oled, {
-                .txtL = "SUBIR",
-                .txtR = "BAJAR"
-            });
-
-
-            switch (state.display.activeOpt) {
-                case 0: // Sensors
-                    sensors::paint(oled, {
-                    .temp = static_cast<int>(state.air.temp),
-                    .hum = static_cast<int>(state.air.hum)
-                });
-                break;
-                case 1: // Scan
-                    sensors::paint(oled, {
-                    .temp = static_cast<int>(22),
-                    .hum = static_cast<int>(33)
-                });
-                break;
-                case 2: // Vol Bright
-                //    sensors::paint(oled, {
-                //     .temp = static_cast<int>(22),
-                //     .hum = static_cast<int>(33)
-                // });
-                break;
-                case 3: // Connect
-                    hotspot::paint(oled, {
-                        .SSID = std::string(state.hotspot.SSID.c_str()),
-                        ._PWD = std::string(state.hotspot._PWD.c_str())
-                    });
-                break;
-                case 4: // Volume
-                //   sensors::paint(oled, {
-                //   .temp = static_cast<int>(22),
-                //   .hum = static_cast<int>(33)
-                // });
-                break;
-            }
-
-            break;
-        }
-        oled.display();
+        btmbar::paint(oled, {
+            .txtL = state.display.content.btmbarTxtL,
+            .txtR = state.display.content.btmbarTxtR
+        });
+        
+        oled.display();         
     }
 }
 

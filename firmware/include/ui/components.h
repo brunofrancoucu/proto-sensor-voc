@@ -33,21 +33,11 @@ namespace btmbar {
 }
 
 namespace menu {
-    struct Config {
-        std::vector<std::string> labels;
-        int focused;
-    };
-
-    void paint(Adafruit_SSD1306& oled, Config config);
+    void paint(Adafruit_SSD1306& oled);
 }
 
-// Handle active screen (ref. screens.h)
-namespace screen {
-    struct Config {
-        int active;
-    };
-    
-    void paint(Adafruit_SSD1306& oled, Config config);
+namespace dashboard {    
+    void paint(Adafruit_SSD1306& oled);
 }
 
 // Atom Components (Stat)

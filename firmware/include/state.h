@@ -1,19 +1,26 @@
 #ifndef STATE_H
 #define STATE_H
-#include <Arduino.h>
 #include <vector>
+#include <Arduino.h>
 
-enum UIMode
-{
+enum UIMode {
     Navigation,
-    Adjustment,
+    Dashboard,
     /** Notification pop up with options */
     Notification
+};
+
+/** Components state, can be changed within UI (contents) */
+struct Content {
+    const std::vector<std::string> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen"};
+    std::string btmbarTxtL;
+    std::string btmbarTxtR;
 };
 
 struct UIState
 {
     UIMode mode;
+    Content content;
     int activeOpt; // VIEW
     int focusedOpt; // hovered selection
     std::vector<int> matrix;
@@ -39,12 +46,15 @@ struct UIState
         {
         case UIMode::Navigation:
             /* code */
-            mode = UIMode::Adjustment;
+            mode = UIMode::Dashboard;
             break;
 
-        case UIMode::Adjustment:
+        case UIMode::Dashboard:
             /* code */
             mode = UIMode::Navigation;
+            // Update Navigation Content
+            content.btmbarTxtL = content.labels[(activeOpt + content.labels.size() - 1) % (content.labels.size())];
+            content.btmbarTxtR = content.labels[(activeOpt + content.labels.size() + 1) % (content.labels.size())];
             break;
         case UIMode::Notification:
             mode = UIMode::Navigation;
