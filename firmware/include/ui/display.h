@@ -2,7 +2,7 @@
 #define DISPLAY_H
 
 #include <cstdint>
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct DisplayPins
 {

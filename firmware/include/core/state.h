@@ -19,11 +19,11 @@ struct Content {
 
 struct UIState
 {
-    UIMode mode;
+    UIMode mode = UIMode::Navigation;
     Content content;
-    int activeOpt; // VIEW
-    int focusedOpt; // hovered selection
-    std::vector<int> matrix;
+    int activeOpt = 0; // VIEW
+    int focusedOpt = 0; // hovered selection
+    std::vector<int> matrix = std::vector<int>(5, 0);
 
     void next(int maxOptions = 5) {
         focusedOpt = (focusedOpt + 1) % maxOptions;
@@ -64,7 +64,7 @@ struct UIState
     }
 
     bool isOn;
-    int brightness;
+    int brightness = 128; // 0-255
 };
 
 struct InputButton
@@ -90,18 +90,18 @@ struct InputState
 
 struct AirState
 {
-    float temp;
-    float hum;
-    float mq2;
-    float mq135;
-    String status;
+    float temp = 25.0f;
+    float hum = 50.0f;
+    float mq2 = 0.0f;
+    float mq135 = 0.0f;
+    String status = "...";
     // measure method
 };
 
 struct ScanState
 {
-    int motorSpeed; // on off, relay
-    bool isRunning;
+    int motorSpeed = 0; // on off, relay
+    bool isRunning = false;
 };
 
 struct Hotspot {
@@ -113,7 +113,7 @@ struct Hotspot {
 struct AppState
 {
     UIState display;
-    ScanState scan;
+    ScanState scan; // TODO: merge into air
     AirState air;
     InputState input;
     Hotspot hotspot;

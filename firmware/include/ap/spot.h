@@ -1,7 +1,7 @@
 #ifndef SPOT_H
 #define SPOT_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct SpotConfig
 {

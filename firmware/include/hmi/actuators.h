@@ -1,7 +1,7 @@
 #ifndef ACTUATORS_H
 #define ACTUATORS_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct ActuatorPins
 {

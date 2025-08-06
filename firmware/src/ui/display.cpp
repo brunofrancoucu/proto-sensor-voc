@@ -5,7 +5,7 @@
 // Internal
 #include "ui/components.h"
 #include "ui/screens.h"
-#include "state.h"
+#include "core/state.h"
 #include "helpers/format.h"
 
 static Adafruit_SSD1306 oled(128, 64, &Wire, -1);
@@ -41,7 +41,7 @@ namespace {
 
         (mode == UIMode::Navigation) && ([&](){ menu::paint(oled); }, 0);
         (mode == UIMode::Dashboard) && ([&](){ dashboard::paint(oled); }, 0);
-        (mode == UIMode::Notification) && Serial.println("Mode: Notification");
+        (mode == UIMode::Notification) && Serial.println("Mode: Notification"); // TODO: independent of UIMode
 
         btmbar::paint(oled, {
             .txtL = state.display.content.btmbarTxtL,

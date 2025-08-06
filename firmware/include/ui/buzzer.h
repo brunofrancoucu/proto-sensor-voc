@@ -1,7 +1,7 @@
 #ifndef BUZZER_H
 #define BUZZER_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct BuzzerPins
 {

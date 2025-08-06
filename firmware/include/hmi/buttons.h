@@ -1,7 +1,7 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct ButtonPins {
     uint8_t LFT;

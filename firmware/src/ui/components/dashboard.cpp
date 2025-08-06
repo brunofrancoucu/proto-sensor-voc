@@ -1,6 +1,6 @@
 #include "ui/components.h"
 #include "ui/screens.h"
-#include "state.h"
+#include "core/state.h"
 
 void dashboard::paint(Adafruit_SSD1306& oled) {
     // state.btns.L = "SUBIR"

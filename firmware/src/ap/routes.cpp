@@ -2,7 +2,7 @@
 #include <WebServer.h>
 #include <LittleFS.h>
 // Internal
-#include "state.h"
+#include "core/state.h"
 #include <ArduinoJson.h>
 
 void handleRoot(WebServer &server)

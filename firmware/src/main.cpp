@@ -4,15 +4,19 @@
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
 // Internal
-#include "state.h"
+#include "core/state.h"
+// Input (sensors, actuators, rfid)
 #include "ap/spot.h"
 #include "hmi/actuators.h"
 #include "hmi/sensors.h"
 #include "hmi/rfid.h"
-#include "core/buttons.h"
+#include "hmi/buttons.h"
+// Output (user control)
 #include "ui/display.h"
 #include "ui/buzzer.h"
 #include "ui/leds.h"
+
+AppState state;
 
 void setup()
 {

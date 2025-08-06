@@ -1,7 +1,7 @@
 #include "hmi/sensors.h"
 #include <DHT.h>
 // Internal
-#include "state.h"
+#include "core/state.h"
 
 namespace {
     String calidad;

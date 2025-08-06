@@ -1,7 +1,7 @@
 #ifndef SENSORS_H
 #define SENSORS_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct SensorsPins
 {

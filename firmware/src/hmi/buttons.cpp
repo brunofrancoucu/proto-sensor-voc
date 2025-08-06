@@ -1,6 +1,6 @@
-#include "core/buttons.h"
+#include "hmi/buttons.h"
 #include "helpers/input.h"
-#include "state.h"
+#include "core/state.h"
 
 namespace {
     ButtonPins pins;

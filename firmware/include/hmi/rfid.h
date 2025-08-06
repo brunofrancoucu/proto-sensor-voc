@@ -1,7 +1,7 @@
 #ifndef RFID_H
 #define RFID_H
 
-#include "cycle.h"
+#include "core/cycle.h"
 
 struct RfidPins
 {
