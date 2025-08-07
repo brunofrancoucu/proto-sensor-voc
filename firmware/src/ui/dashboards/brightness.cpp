@@ -24,12 +24,12 @@ void BrightnessView::onInput(Button& button) {
     static int prev = state.display.brightness;
     if (button.pin == state.input.pins.LFT) {
         // LFT();
-        state.display.setBrightness(prev - 6);
+        state.display.setBrightness(prev - 255/100*3);
     } else if (button.pin == state.input.pins.MID) {
         // MID();
         state.display.navTo(&menuView);
     } else if (button.pin == state.input.pins.RGT) {
         // RGT();
-        state.display.setBrightness(prev + 6);
+        state.display.setBrightness(prev + 255/100*3);
     }
 }
