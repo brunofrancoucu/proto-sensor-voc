@@ -9,30 +9,29 @@ void dashboard::paint() {
     switch (state.display.activeOpt) {
         case 0: // Sensors
             sensors::paint({
-            .temp = state.air.temp,
-            .hum = state.air.hum
-        });
+                .temp = state.air.temp,
+                .hum = state.air.hum
+            });
         break;
         case 1: // Scan
             sensors::paint({
-            .temp = 22,
-            .hum = 33
-        });
-        break;
-        case 2: // Vol Bright
-            settings::paint({
-                .volume = state.system.volume,
-                .brightness = state.display.brightness
+                .temp = 22,
+                .hum = 33
             });
         break;
-        case 3: // Connect
+        case 2: // Brightness
+            state.display.content.btmbarTxtL = "BAJAR";
+            state.display.content.btmbarTxtR = "SUBIR";
+            brightness::paint();
+        break;
+        case 3: // Volume
+            volume::paint();
+        break;
+        case 4: // Hotspot
             hotspot::paint({
                 .SSID = state.hotspot.SSID,
                 ._PWD = state.hotspot._PWD
             });
-        break;
-        case 4: // Volume
-            volume::paint();
         break;
     }
 }

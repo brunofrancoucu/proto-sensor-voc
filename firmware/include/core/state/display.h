@@ -16,7 +16,7 @@ enum UIMode {
 
 /** Components state, can be changed within UI (contents) */
 struct Content {
-    const std::vector<String> labels = {"Sensores", "Medir", "Ajustes", "Conectar", "Volumen"};
+    const std::vector<String> labels = {"Sensores", "Medir", "Brillo", "Volumen", "Conectar"};
     String btmbarTxtL = labels[labels.size() - 1];
     String btmbarTxtR = labels[0];
 };
