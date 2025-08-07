@@ -17,7 +17,7 @@ namespace navbar {
         Icon alert;
         Icon ap;
         Icon wifi;
-        Icon bt;
+        Icon bat;
     };
 
     void paint(Config config);

@@ -32,7 +32,7 @@ namespace {
             .alert = {.blink = true},
             .ap = {.blink = true},
             .wifi = {.blink = false},
-            .bt = {.blink = false}
+            .bat = {.blink = state.system.battery < 20}
         });
 
         mode == UIMode::Navigation ? menu::paint() : void();

@@ -13,7 +13,7 @@ static auto& oled = state.display.oled;
 static Blink alert;
 static Blink ap;
 static Blink wifi;
-static Blink bt;
+static Blink bat;
 
 
 void navbar::paint(Config config) {
@@ -24,7 +24,7 @@ void navbar::paint(Config config) {
     oled.drawLine(0, 9, 128, 9, 1);
 
     // Battery
-    blinkIf(config.bt.blink, bt, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
+    blinkIf(config.bat.blink, bat, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
     // Alert
     blinkIf(config.alert.blink, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
     // BLE_beacon
