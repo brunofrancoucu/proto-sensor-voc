@@ -1,5 +1,4 @@
 #include "hmi/buttons.h"
-#include "helpers/input.h"
 #include "core/state.h"
 
 namespace {
@@ -24,6 +23,5 @@ namespace {
         }
     }
 }
-
 
 decltype(buttons) buttons = makeCycleComp(initSetup, cycle);
