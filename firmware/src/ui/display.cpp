@@ -36,7 +36,9 @@ namespace {
             .bat = {.blink = state.system.battery < 20}
         });
 
+        // Render View Page
         state.display.activeView->paint();
+        
         (mode == UIMode::Notification) && Serial.println("Mode: Notification"); // TODO: independent of UIMode
 
         btmbar::paint({

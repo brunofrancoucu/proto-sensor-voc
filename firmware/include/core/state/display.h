@@ -37,14 +37,6 @@ struct UIState {
     bool isOn;
     uint8_t brightness = 128; // 0-255
 
-    // // Assumes mode is Navigation
-    // void cursor(Nav direction, int maxOptions = 5) {
-    //     focusedOpt = (focusedOpt + direction + maxOptions) % maxOptions;
-    //     // Update navigation bar text
-    //     content.btmbarTxtL = content.labels[(focusedOpt + content.labels.size() - 1) % (content.labels.size())];
-    //     content.btmbarTxtR = content.labels[(focusedOpt + content.labels.size() + 1) % (content.labels.size())];
-    // }
-
     // Enter dashboard
     void navTo(View* view) {
         activeView = view;
