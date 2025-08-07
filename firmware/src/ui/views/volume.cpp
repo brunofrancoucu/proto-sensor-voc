@@ -25,7 +25,7 @@ void VolumeView::paint() {
     // volume
     if (volLast != state.system.volume) {
         volLast = state.system.volume;
-        volIconId = map(state.system.volume + 133/3, 0, 100 + 33, 0, 3);
+        volIconId = map(state.system.volume + (255+255/3) / 3, 0, 255 + 255 / 3, 0, 3);
     }
 
     paintSetting(vol_icon[volIconId], String(state.system.volume) + " %", 1.25);
@@ -43,8 +43,8 @@ void VolumeView::onInput(Button& button) {
         state.display.navTo(&menuView);
     } else if (button.pin == state.input.pins.RGT) {
         // RGT();
-        if (state.system.volume <= 100) {
-            state.system.volume = min(100, state.system.volume + 3);
+        if (state.system.volume <= 255) {
+            state.system.volume = min(255, state.system.volume + 3);
             playTone(523, 25);
         }
     }

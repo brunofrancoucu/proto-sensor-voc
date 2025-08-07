@@ -29,9 +29,11 @@ static const std::vector<View*> views = {
 // Reference aliases
 static auto& oled = state.display.oled;
 static const std::vector<String>& labels = state.display.content.labels;
-static const int& foc = state.display.focusedOpt;
+// static const int& foc = state.display.focusedOpt;
 // Interface constants
 static const uint8_t iconWidth = 16;
+
+static int focusedOpt = 0;
 
 MenuView menuView;
 
@@ -39,26 +41,26 @@ void MenuView::paint() {
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
-    oled.getTextBounds(labels[foc], 0, 0, &x1, &y1, &w, &h);
+    oled.getTextBounds(labels[focusedOpt], 0, 0, &x1, &y1, &w, &h);
     // Draw
     const uint8_t gap = 8;
     const uint8_t pdg = 8;
     const uint8_t rectWidth = iconWidth + w + gap + pdg*2; // txt + gap + padding
     oled.drawRoundRect((SSD_WIDTH - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, icons[foc], 16, 16, 1);
+    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, icons[focusedOpt], 16, 16, 1);
     oled.setCursor((SSD_WIDTH - rectWidth)/2 + iconWidth + gap + pdg, 27); // 64/2 - 8/2
-    oled.print(labels[foc]);
+    oled.print(labels[focusedOpt]);
     
     // Icons Left
     for (size_t i = 0; i < labels.size(); ++i) {
         int posX = SSD_WIDTH / 2 - rectWidth / 2 - i * (iconWidth + 10) - 8 - iconWidth;
-        oled.drawBitmap(posX, 23, icons[(foc - i - 1 + labels.size()) % labels.size()], 16, 16, 1);
+        oled.drawBitmap(posX, 23, icons[(focusedOpt - i - 1 + labels.size()) % labels.size()], 16, 16, 1);
     }
     
     // Icons Right
     for (size_t i = 0; i < labels.size(); ++i) {
         int posX = SSD_WIDTH / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
-        oled.drawBitmap(posX, 23, icons[(foc + i + 1) % labels.size()], 16, 16, 1);
+        oled.drawBitmap(posX, 23, icons[(focusedOpt + i + 1) % labels.size()], 16, 16, 1);
     }
 }
 
@@ -66,7 +68,7 @@ void MenuView::paint() {
 enum Nav { NEXT = 1, PREV = -1 };
 
 void moveCursor(Nav direction, int maxOptions = 5) {
-    int& focusedOpt = state.display.focusedOpt;
+    // int& focusedOpt = state.display.focusedOpt;
     focusedOpt = (focusedOpt + direction + maxOptions) % maxOptions;
     // Update navigation bar text
     state.display.content.btmbarTxtL = state.display.content.labels[(focusedOpt + state.display.content.labels.size() - 1) % (state.display.content.labels.size())];
@@ -79,7 +81,7 @@ void MenuView::onInput(Button& button) {
         moveCursor(Nav::PREV);
     } else if (button.pin == state.input.pins.MID) {
         // MID();
-        state.display.navTo(views[foc]);
+        state.display.navTo(views[focusedOpt]);
     } else if (button.pin == state.input.pins.RGT) {
         // RGT();
         moveCursor(Nav::NEXT);

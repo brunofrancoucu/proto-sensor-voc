@@ -32,9 +32,10 @@ struct HotspotState {
 
 // Others..
 struct System {
-    int volume = 50; // 0-100
     String clock = "00:00"; // HH:MM
-    int battery = 80; // 0-100
+    uint8_t brightness = 122; // 0-255
+    uint8_t volume = 255/4; // 0-255
+    uint8_t battery = 80; // 0-100
 };
 
 struct AppState
