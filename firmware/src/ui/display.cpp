@@ -6,11 +6,7 @@
 #include "core/state.h"
 #include "helpers/format.h"
 
-// Reference aliases
 static auto& oled = state.display.oled;
-// static const int &act = state.display.activeOpt;
-// static const int &foc = state.display.focusedOpt;
-// static const UIMode& mode = state.display.mode;
 
 namespace {
     void initSetup(DisplayPins pins)
@@ -38,8 +34,6 @@ namespace {
 
         // Render View Page
         state.display.activeView->paint();
-
-        // (mode == UIMode::Notification) && Serial.println("Mode: Notification"); // TODO: independent of UIMode
 
         btmbar::paint({
             .txtL = state.display.content.btmbarTxtL,
