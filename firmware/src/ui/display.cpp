@@ -2,7 +2,7 @@
 #include <Wire.h>
 // Internal
 #include "ui/components.h"
-#include "ui/dashboards.h"
+#include "ui/views.h"
 #include "core/state.h"
 #include "helpers/format.h"
 
@@ -38,7 +38,7 @@ namespace {
 
         // Render View Page
         state.display.activeView->paint();
-        
+
         (mode == UIMode::Notification) && Serial.println("Mode: Notification"); // TODO: independent of UIMode
 
         btmbar::paint({

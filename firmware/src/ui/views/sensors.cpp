@@ -1,4 +1,4 @@
-#include "ui/dashboards.h"
+#include "ui/views.h"
 #include "ui/molecules.h"
 #include "core/state.h"
 
