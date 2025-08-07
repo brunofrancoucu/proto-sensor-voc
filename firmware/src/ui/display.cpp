@@ -17,9 +17,10 @@ namespace {
     {
         Wire.begin(pins.SDA, pins.SCL);
         oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-        welcome::paint();
+        welcomeView.paint();
         oled.display();
         // Initialize variables & mem
+        state.display.activeView = &menuView;
     }
     
     void cycle()
@@ -35,8 +36,7 @@ namespace {
             .bat = {.blink = state.system.battery < 20}
         });
 
-        mode == UIMode::Navigation ? menu::paint() : void();
-        mode == UIMode::Dashboard ? dashboard::paint() : void();
+        state.display.activeView->paint();
         (mode == UIMode::Notification) && Serial.println("Mode: Notification"); // TODO: independent of UIMode
 
         btmbar::paint({

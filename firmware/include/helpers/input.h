@@ -2,8 +2,9 @@
 #define INPUT_H
 
 #include "core/state.h"
+#include "hmi/buttons.h"
 
-void updateButton(uint8_t pin, InputButton& button, std::function<void()> callback);
+void updateButton(Button& button, std::function<void()> callback);
 
 #endif
  

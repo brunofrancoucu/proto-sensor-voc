@@ -16,9 +16,9 @@ static const std::vector<const unsigned char*> vol_icon = {
     image_volume_3
 };
 
-static auto& oled = state.display.oled;
+VolumeView volumeView;
 
-void volume::paint() {
+void VolumeView::paint() {
     static int volLast = -1; // value
     static int volIconId = -1; // map()
 
@@ -29,4 +29,23 @@ void volume::paint() {
     }
 
     paintSetting(vol_icon[volIconId], String(state.system.volume) + " %", 1.25);
+}
+
+void VolumeView::onInput(Button& button) {
+    if (button.pin == state.input.pins.LFT) {
+        // LFT();
+        if (state.system.volume >= 0) {
+            state.system.volume = max(0, state.system.volume - 3);
+            playTone(500, 25);
+        }
+    } else if (button.pin == state.input.pins.MID) {
+        // MID();
+        state.display.navTo(&menuView);
+    } else if (button.pin == state.input.pins.RGT) {
+        // RGT();
+        if (state.system.volume <= 100) {
+            state.system.volume = min(100, state.system.volume + 3);
+            playTone(523, 25);
+        }
+    }
 }

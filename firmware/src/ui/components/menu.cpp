@@ -1,4 +1,4 @@
-#include "ui/components.h"
+#include "ui/dashboards.h"
 // Navigation menu
 #include "core/state.h"
 
@@ -18,6 +18,14 @@ static const std::vector<const unsigned char*> icons = {
     image_music_radio_broadcast_bits, // Communicate
 };
 
+static const std::vector<View*> views = {
+    &sensorsView,
+    &scanView,
+    &brightnessView,
+    &volumeView,
+    &hotspotView,
+};
+
 // Reference aliases
 static auto& oled = state.display.oled;
 static const std::vector<String>& labels = state.display.content.labels;
@@ -25,7 +33,9 @@ static const int& foc = state.display.focusedOpt;
 // Interface constants
 static const uint8_t iconWidth = 16;
 
-void menu::paint() {
+MenuView menuView;
+
+void MenuView::paint() {
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
@@ -49,5 +59,29 @@ void menu::paint() {
     for (size_t i = 0; i < labels.size(); ++i) {
         int posX = SSD_WIDTH / 2 + rectWidth / 2 + i * (iconWidth + 10) + 8;
         oled.drawBitmap(posX, 23, icons[(foc + i + 1) % labels.size()], 16, 16, 1);
+    }
+}
+
+// Navigation direction
+enum Nav { NEXT = 1, PREV = -1 };
+
+void moveCursor(Nav direction, int maxOptions = 5) {
+    int& focusedOpt = state.display.focusedOpt;
+    focusedOpt = (focusedOpt + direction + maxOptions) % maxOptions;
+    // Update navigation bar text
+    state.display.content.btmbarTxtL = state.display.content.labels[(focusedOpt + state.display.content.labels.size() - 1) % (state.display.content.labels.size())];
+    state.display.content.btmbarTxtR = state.display.content.labels[(focusedOpt + state.display.content.labels.size() + 1) % (state.display.content.labels.size())];
+}
+
+void MenuView::onInput(Button& button) {
+    if (button.pin == state.input.pins.LFT) {
+        // LFT();
+        moveCursor(Nav::PREV);
+    } else if (button.pin == state.input.pins.MID) {
+        // MID();
+        state.display.navTo(views[foc]);
+    } else if (button.pin == state.input.pins.RGT) {
+        // RGT();
+        moveCursor(Nav::NEXT);
     }
 }

@@ -32,10 +32,6 @@ namespace btmbar {
     void paint(Config config);
 }
 
-namespace menu {
-    void paint();
-}
-
 namespace dashboard {
     void paint();
 }

@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 
+#include "core/state/view.h"
+
 #define SSD_WIDTH 128
 #define SSD_HEIGHT 64
 
@@ -21,14 +23,13 @@ struct Content {
     String btmbarTxtR = labels[0];
 };
 
-// Navigation direction
-enum Nav { NEXT = 1, PREV = -1 };
 
 struct UIState {
     Adafruit_SSD1306 oled{SSD_WIDTH, SSD_HEIGHT, &Wire, -1}; // Initialize (same reference at aliases)
     Content content;
     // Interaction
     UIMode mode = UIMode::Navigation;
+    View* activeView;
     int activeOpt = 0; // VIEW
     int focusedOpt = 0; // hovered selection
     std::vector<int> matrix = std::vector<int>(5, 0);
@@ -36,16 +37,17 @@ struct UIState {
     bool isOn;
     uint8_t brightness = 128; // 0-255
 
-    // Assumes mode is Navigation
-    void nav(Nav dir, int maxOptions = 5) {
-        focusedOpt = (focusedOpt + dir + maxOptions) % maxOptions;
-        // Update navigation bar text
-        content.btmbarTxtL = content.labels[(focusedOpt + content.labels.size() - 1) % (content.labels.size())];
-        content.btmbarTxtR = content.labels[(focusedOpt + content.labels.size() + 1) % (content.labels.size())];
-    }
+    // // Assumes mode is Navigation
+    // void cursor(Nav direction, int maxOptions = 5) {
+    //     focusedOpt = (focusedOpt + direction + maxOptions) % maxOptions;
+    //     // Update navigation bar text
+    //     content.btmbarTxtL = content.labels[(focusedOpt + content.labels.size() - 1) % (content.labels.size())];
+    //     content.btmbarTxtR = content.labels[(focusedOpt + content.labels.size() + 1) % (content.labels.size())];
+    // }
 
     // Enter dashboard
-    void select() {
+    void navTo(View* view) {
+        activeView = view;
         // Store updated adjustment state
         matrix[activeOpt] = focusedOpt;
         int prevActive = matrix[focusedOpt];
@@ -79,7 +81,7 @@ struct UIState {
      * @param value 0x00 (dimmest) to 0xFF (brightest), try 0x40 for lower brightness
      */
     void setBrightness(uint8_t value) {
-        brightness = value;
+        brightness = max(min(value, uint8_t(255)), uint8_t(0));
         oled.ssd1306_command(SSD1306_SETCONTRAST);
         oled.ssd1306_command(brightness);
     }

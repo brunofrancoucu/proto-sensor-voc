@@ -20,14 +20,16 @@ void printDec(byte *buffer, byte bufferSize) {
   }
 }
 
+#define GMT -3 // GMT offset in hours, adjust as needed
+
 /**
  * @brief Transform millis() into clock time format (HH:MM).
  * @param millis Time in milliseconds.
- * @param gmt GMT hours
+ * @note gmt GMT hours from macro
  */
-String msToClock(unsigned long millis, int gmt) {
+String msToClock(unsigned long millis) {
   unsigned long totalSeconds = millis / 1000;
-  unsigned long hours = (totalSeconds / 3600 + gmt) % 24; // Wrap around after 24 hours
+  unsigned long hours = (totalSeconds / 3600 + GMT) % 24; // Wrap around after 24 hours
   unsigned long minutes = (totalSeconds / 60) % 60;
 
   char buffer[6];

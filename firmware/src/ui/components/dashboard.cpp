@@ -1,6 +1,6 @@
 #include "ui/components.h"
 #include "ui/dashboards.h"
-#include "core/state.h"
+#include "core/state.h" // view.h
 
 static auto& oled = state.display.oled;
 
@@ -8,30 +8,25 @@ void dashboard::paint() {
     // state.btns.L = "SUBIR"
     switch (state.display.activeOpt) {
         case 0: // Sensors
-            sensors::paint({
-                .temp = state.air.temp,
-                .hum = state.air.hum
-            });
+            sensorsView.paint();
         break;
         case 1: // Scan
-            sensors::paint({
-                .temp = 22,
-                .hum = 33
-            });
+            sensorsView.paint();
         break;
         case 2: // Brightness
             state.display.content.btmbarTxtL = "BAJAR";
             state.display.content.btmbarTxtR = "SUBIR";
-            brightness::paint();
-        break;
+            brightnessView.paint();
+            break;
         case 3: // Volume
-            volume::paint();
-        break;
-        case 4: // Hotspot
-            hotspot::paint({
-                .SSID = state.hotspot.SSID,
-                ._PWD = state.hotspot._PWD
-            });
+            state.display.content.btmbarTxtL = "BAJAR";
+            state.display.content.btmbarTxtR = "SUBIR";
+            volumeView.paint();
+            break;
+            case 4: // Hotspot
+            state.display.content.btmbarTxtL = "INFO";
+            state.display.content.btmbarTxtR = "";
+            hotspotView.paint();
         break;
     }
 }

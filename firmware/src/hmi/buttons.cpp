@@ -3,31 +3,25 @@
 #include "core/state.h"
 
 namespace {
-    ButtonPins pins;
-
     void initSetup(ButtonPins rPins)
     {
-        pins = std::move(rPins);
-        /*
-         * Enable internal pull-up resistor:
-         * This keeps the input HIGH when not pressed
-         * Button should connect pin to GND when pressed (reads LOW).
-        */
-        pinMode(pins.LFT, INPUT_PULLUP);
-        pinMode(pins.MID, INPUT_PULLUP);
-        pinMode(pins.RGT, INPUT_PULLUP);
+        // Init Button instance for each btn pin
+        state.input.pins = rPins;
+        state.input.buttons = {
+            Button(rPins.LFT),
+            Button(rPins.MID),
+            Button(rPins.RGT)
+        };
     }
 
     void cycle()
     {
-        UIState& display = state.display;
-
-        /**
-         * Workflow: pressed event within module / comp (gamified)
-        */
-        updateButton(pins.LFT, state.input.LFT, [](){ display.nav(Nav::PREV); });
-        updateButton(pins.MID, state.input.MID, [](){ display.select(); });
-        updateButton(pins.RGT, state.input.RGT, [](){ display.nav(Nav::NEXT); });
+        // Handle button presses for each Button
+        for (Button& button : state.input.buttons) {
+            button.onPress([&]() {
+                state.display.activeView->onInput(button);
+            });
+        }
     }
 }
 

@@ -24,7 +24,7 @@ struct ScanState
     bool isRunning = false;
 };
 
-struct Hotspot {
+struct HotspotState {
     String SSID;
     String _PWD;
     bool isRunning;
@@ -43,7 +43,7 @@ struct AppState
     ScanState scan; // TODO: merge into air
     AirState air;
     InputState input;
-    Hotspot hotspot;
+    HotspotState hotspot;
     System system;
 };
 

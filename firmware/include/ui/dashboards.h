@@ -2,37 +2,25 @@
 #define SCREENS_H
 
 #include <Arduino.h>
+#include "core/state/view.h"
 
-// Screens (Adjustment views, Welcome)
+// Macro to declare a view class and its instance
+#define DECLARE_VIEW(ClassName, viewName) \
+    class ClassName : public View { \
+    public: \
+        void paint() override; \
+        void onInput(Button& button) override; \
+    }; \
+    extern ClassName viewName; \
 
-namespace welcome {
-    void paint();
-};
 
-namespace sensors {
-    struct Config {
-        float temp;
-        float hum;
-    };
+DECLARE_VIEW(BrightnessView, brightnessView)
+DECLARE_VIEW(VolumeView, volumeView)
+DECLARE_VIEW(ScanView, scanView)
+DECLARE_VIEW(SensorsView, sensorsView)
+DECLARE_VIEW(HotspotView, hotspotView)
+DECLARE_VIEW(MenuView, menuView)
+DECLARE_VIEW(WelcomeView, welcomeView)
 
-    void paint(Config config);
-}
-
-namespace hotspot {
-    struct Config {
-        String SSID;
-        String _PWD;
-    };
-
-    void paint(Config config);
-}
-
-namespace brightness {
-    void paint();
-}
-
-namespace volume {
-    void paint();
-}
-
+#undef DECLARE_VIEW
 #endif // SCREENS_H

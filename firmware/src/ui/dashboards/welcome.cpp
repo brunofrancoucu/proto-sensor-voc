@@ -5,11 +5,18 @@ static const unsigned char PROGMEM image_plant_bits[] = {0x00,0x03,0x00,0x0f,0x2
 
 static auto& oled = state.display.oled;
 
-void welcome::paint () {    
+WelcomeView welcomeView;
+
+void WelcomeView::paint () {    
     oled.clearDisplay();
     oled.setTextSize(1);
     oled.setTextColor(SSD1306_WHITE);
     oled.setCursor(50, 1);
     // plant
     oled.drawBitmap(56, 24, image_plant_bits, 16, 16, 1);
+}
+
+void WelcomeView::onInput(Button& button) {
+    // No specific actions needed on entering the welcome view
+    state.display.navTo(&menuView);
 }
