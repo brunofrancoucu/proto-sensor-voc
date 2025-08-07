@@ -11,6 +11,6 @@ void paintStatBox(const unsigned char* icon, const String& txt, int x, int y);
 void paintSettingBox(bool isSelected, bool isActive, const unsigned char* icon, String text, int x, int y);
 
 /** Single setting (full screen) */
-void paintSetting(const unsigned char* icon, String text, float iconRatio = 1);
+void paintSetting(const unsigned char* icon, String text, float iconRatio = 1.0f);
 
 #endif

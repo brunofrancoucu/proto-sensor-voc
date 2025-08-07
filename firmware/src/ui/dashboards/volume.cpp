@@ -25,7 +25,7 @@ void VolumeView::paint() {
     // volume
     if (volLast != state.system.volume) {
         volLast = state.system.volume;
-        volIconId = map(state.system.volume, 0, 100, 0, 3);
+        volIconId = map(state.system.volume + 133/3, 0, 100 + 33, 0, 3);
     }
 
     paintSetting(vol_icon[volIconId], String(state.system.volume) + " %", 1.25);
