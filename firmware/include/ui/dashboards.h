@@ -35,4 +35,8 @@ namespace settings {
     void paint(Config config);
 }
 
+namespace volume {
+    void paint();
+}
+
 #endif // SCREENS_H

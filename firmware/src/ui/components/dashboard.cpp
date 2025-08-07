@@ -1,5 +1,5 @@
 #include "ui/components.h"
-#include "ui/screens.h"
+#include "ui/dashboards.h"
 #include "core/state.h"
 
 static auto& oled = state.display.oled;
@@ -32,10 +32,7 @@ void dashboard::paint() {
             });
         break;
         case 4: // Volume
-        //   sensors::paint({
-        //   .temp = String(22),
-        //   .hum = String(33)
-        // });
+            volume::paint();
         break;
     }
 }

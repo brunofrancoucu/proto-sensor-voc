@@ -1,5 +1,4 @@
 #include "ui/dashboards.h"
-// Dual config page
 #include "core/state.h"
 #include "helpers/blink.h"
 
@@ -18,34 +17,25 @@ static const std::vector<const unsigned char*> vol_icon = {
 static const unsigned char PROGMEM image_display_brightness_bits[] = {0x01,0x00,0x21,0x08,0x10,0x10,0x03,0x80,0x8c,0x62,0x48,0x24,0x10,0x10,0x10,0x10,0x10,0x10,0x48,0x24,0x8c,0x62,0x03,0x80,0x10,0x10,0x21,0x08,0x01,0x00,0x00,0x00};
 static auto& oled = state.display.oled;
 
-static Blink vol;
-static Blink brightness;
-
-void paintSettingBox(bool isSelected, bool isActive, const unsigned char* icon, String text, int x, int y)
-{
-    const int txtWidth = 24;
-    oled.drawBitmap(x + 6, y + 6, icon, 20, 16, 1);
-    oled.setCursor(x + 6 + 4 + 20, y + 6 + 4);
-    blinkIf(isActive, vol, [&](){ oled.print(text); }, 0);
-
-    if (isSelected) {
-        oled.drawRoundRect(x, y, 62, 26, 7, 1);
-    }
-}
-
-void settings::paint(Config config)
-{
+void volume::paint() {
     static int volLast = -1; // value
     static int volIconId = -1; // map()
 
     // volume
-    if (volLast != config.volume) {
-        volLast = config.volume;
-        volIconId = map(config.volume, 0, 100, 0, 3);
+    if (volLast != state.system.volume) {
+        volLast = state.system.volume;
+        volIconId = map(state.system.volume, 0, 100, 0, 3);
     }
-    paintSettingBox(true, true, vol_icon[volIconId], String(config.volume) + " %", 64, 20);
 
-    // brightness
-    paintSettingBox(true, false, image_display_brightness_bits, String(config.brightness) + " %", 4, 20);
-    
+    // volume_loud
+    oled.drawBitmap(14, 17, vol_icon[volIconId], 40, 32, 1);
+
+    // Layer 5
+    oled.setTextSize(2);
+    oled.setTextWrap(false);
+    oled.setCursor(67, 25);
+    oled.print("20 %");
+
+    // Reset
+    oled.setTextSize(1);
 }

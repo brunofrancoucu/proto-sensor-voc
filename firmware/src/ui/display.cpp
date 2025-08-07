@@ -2,7 +2,7 @@
 #include <Wire.h>
 // Internal
 #include "ui/components.h"
-#include "ui/screens.h"
+#include "ui/dashboards.h"
 #include "core/state.h"
 #include "helpers/format.h"
 
