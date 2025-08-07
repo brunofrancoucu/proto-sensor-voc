@@ -1,5 +1,6 @@
 #include "ui/components.h"
 #include "core/state.h"
+#include "helpers/blink.h"
 
 static const unsigned char PROGMEM image_Alert_bits[] = {0x08,0x00,0x1c,0x00,0x14,0x00,0x36,0x00,0x36,0x00,0x7f,0x00,0x77,0x00,0xff,0x80};
 static const unsigned char PROGMEM image_Battery_bits[] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x0f,0xf0,0x10,0x08,0x32,0xa8,0x32,0xa8,0x10,0x08,0x0f,0xf0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
@@ -9,24 +10,11 @@ static const unsigned char PROGMEM image_Rpc_active_bits[] = {0xe0,0xac,0xe2,0x0
 static auto& oled = state.display.oled;
 
 // Icon blinks
-struct Blink {
-    unsigned long last_ms = 0;
-};
 static Blink alert;
 static Blink ap;
 static Blink wifi;
 static Blink bt;
 
-/** @brief Custom blink effect for icons.
- * @note (defaults to no blink, ON).
- */
-static void blinkIf(bool condition, Blink& icon, std::function<void()> drawCb, unsigned long offset = 0) {
-    if (condition) {
-        ((millis() + offset) % 600 < 200) && (drawCb(), 0); // 200ms on 400ms off
-    } else {
-        drawCb();
-    }
-}
 
 void navbar::paint(Config config) {
     // Layer 1

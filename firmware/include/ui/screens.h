@@ -30,6 +30,7 @@ namespace hotspot {
 namespace settings {
     struct Config {
         int volume; // %
+        int brightness; // %
     };
     void paint(Config config);
 }

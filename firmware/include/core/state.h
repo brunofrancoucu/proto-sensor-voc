@@ -30,6 +30,12 @@ struct Hotspot {
     bool isRunning;
 };
 
+// Others..
+struct System {
+    int volume = 50; // 0-100
+    String clock = "00:00"; // HH:MM
+};
+
 struct AppState
 {
     UIState display;
@@ -37,6 +43,7 @@ struct AppState
     AirState air;
     InputState input;
     Hotspot hotspot;
+    System system;
 };
 
 extern AppState state;

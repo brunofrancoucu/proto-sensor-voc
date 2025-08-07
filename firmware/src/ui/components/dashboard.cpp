@@ -20,10 +20,10 @@ void dashboard::paint() {
         });
         break;
         case 2: // Vol Bright
-        //    sensors::paint({
-        //     .temp = String(22),
-        //     .hum = String(33)
-        // });
+            settings::paint({
+                .volume = state.system.volume,
+                .brightness = state.display.brightness
+            });
         break;
         case 3: // Connect
             hotspot::paint({
