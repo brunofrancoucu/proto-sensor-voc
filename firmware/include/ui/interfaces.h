@@ -10,16 +10,18 @@
 template<typename ContentType = void>
 class Interface {
 public:
-    // Components state, can be changed within UI (contents)
+    /** @brief Components content state (labels icons), 
+     * @note enables change within UI (contents) 
+    */
     ContentType content;
+    /** @brief Paint the view content on the display */
     virtual void paint() = 0;
     virtual ~Interface() {}
 };
-
 // Specialization
 template<>
 class Interface<void> {
-public:
+    public:
     virtual void paint() = 0;
     virtual ~Interface() {}
 };
@@ -38,8 +40,15 @@ public:
     View(const String& viewLabel, const unsigned char* viewIcon)  // ✅ Parameterized constructor
     : label(viewLabel), icon(viewIcon) {}
     
-    // Optional Enter method
-
+    /** @brief Called when the view is entered 
+     * @note setup dependencies, ex btmbar
+     */
+    virtual void enter() {}
+    
+    /** @brief Handle input events (button presses)
+     * @param button The button that was pressed (pin)
+     * @note Default to navTo(menuView)
+     */
     virtual void onInput(Button& button) = 0;
     virtual ~View() {}
 };
