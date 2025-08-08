@@ -1,4 +1,4 @@
-#include "ui/components.h"
+#include "ui/instances.h"
 #include "core/state.h"
 #include "helpers/blink.h"
 
@@ -7,28 +7,26 @@ static const unsigned char PROGMEM image_Battery_bits[] = {0x00,0x00,0x00,0x00,0
 static const unsigned char PROGMEM image_BLE_beacon_bits[] = {0x44,0x92,0xaa,0x92,0x54,0x10,0x10,0x7c};
 static const unsigned char PROGMEM image_Rpc_active_bits[] = {0xe0,0xac,0xe2,0x02,0x80,0x8e,0x6a,0x0e};
 
+NavBar navbar;
+
 static auto& oled = state.display.oled;
 
 // Icon blinks
-static Blink alert;
-static Blink ap;
-static Blink wifi;
-static Blink bat;
+static Blink alert, ap, wifi, bat;
 
-
-void navbar::paint(Config config) {
+void NavBar::paint() {
     // Layer 1
     oled.setCursor(50, 1);
-    oled.print(config.clock.c_str());
+    oled.print(state.system.clock);
     // Layer 2
     oled.drawLine(0, 9, 128, 9, 1);
 
     // Battery
-    blinkIf(config.bat.blink, bat, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
+    blinkIf(state.system.battery < 20, bat, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
     // Alert
-    blinkIf(config.alert.blink, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
+    blinkIf(true, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
     // BLE_beacon
-    blinkIf(config.wifi.blink, wifi, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); }, 300);
+    blinkIf(true, wifi, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); }, 300);
     // Rpc_active
-    blinkIf(config.ap.blink, ap, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); }, 400);
+    blinkIf(false, ap, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); }, 400);
 }

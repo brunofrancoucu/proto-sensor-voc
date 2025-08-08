@@ -9,18 +9,10 @@
 #define SSD_WIDTH 128
 #define SSD_HEIGHT 64
 
-/** Components state, can be changed within UI (contents) */
-struct Content {
-    const std::vector<String> labels = {"Sensores", "Medir", "Brillo", "Volumen", "Conectar"};
-    String btmbarTxtL = labels[labels.size() - 1];
-    String btmbarTxtR = labels[0];
-};
-
-
+/** @brief Components state, can be changed within UI (contents) */
 struct UIState {
     // Initializes (same reference at aliases)
     Adafruit_SSD1306 oled{SSD_WIDTH, SSD_HEIGHT, &Wire, -1}; 
-    Content content; // TODO: remove, use components directly
     View* activeView;
 
     // Enter dashboard

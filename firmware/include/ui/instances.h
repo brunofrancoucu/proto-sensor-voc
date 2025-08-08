@@ -4,36 +4,54 @@
 #include <Arduino.h>
 #include "ui/interfaces.h"
 
-// Interfaces
-#define DECLARE_INTERFACE(ClassName, declName) \
-    class ClassName : public Interface { \
+// Macros to declare a view class and its instance
+
+#define DECLARE_INTERFACE(ClassName, declName, contentType) \
+    class ClassName : public Interface<contentType> { \
     public: \
+        contentType content; \
         void paint() override; \
-        virtual ~ClassName() {} \
+        ClassName(contentType content) : content(content) {} \
     }; \
     extern ClassName declName; \
-   
-// Macro to declare a view class and its instance
+
+#define DECLARE_SIMPLE_INTERFACE(ClassName, declName) \
+    class ClassName : public Interface<> { \
+    public: \
+        void paint() override; \
+        ClassName() {} \
+    }; \
+    extern ClassName declName;
+
 #define DECLARE_VIEW(ClassName, declName) \
     class ClassName : public View { \
     public: \
-    String label; \
-        const unsigned char* icon; \
+        ClassName() {} \
+        ClassName(const String& label, const unsigned char* icon) \
+            : View(label, icon) {} \
         void paint() override; \
         void onInput(Button& button) override; \
-        ClassName(const String& viewLabel, const unsigned char* viewIcon) \
-        : label(viewLabel), icon(viewIcon) {} \
     }; \
     extern ClassName declName; \
     
-DECLARE_INTERFACE(WelcomeView, welcomeView)
+// Declarations instances of interfaces
 
+DECLARE_SIMPLE_INTERFACE(WelcomeView, welcomeView)
+// Views
 DECLARE_VIEW(BrightnessView, brightnessView)
 DECLARE_VIEW(VolumeView, volumeView)
 DECLARE_VIEW(ScanView, scanView)
 DECLARE_VIEW(SensorsView, sensorsView)
 DECLARE_VIEW(HotspotView, hotspotView)
 DECLARE_VIEW(MenuView, menuView)
+
+struct BtmBarConfig {
+    String txtL;
+    String txtR;
+};
+
+DECLARE_SIMPLE_INTERFACE(NavBar, navbar)
+DECLARE_INTERFACE(BtmBar, btmbar, BtmBarConfig)
 
 #undef DECLARE_INTERFACE
 #undef DECLARE_VIEW

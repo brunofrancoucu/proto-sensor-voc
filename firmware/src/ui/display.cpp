@@ -1,7 +1,7 @@
 #include "ui/display.h"
 #include <Wire.h>
 // Internal
-#include "ui/components.h"
+#include "ui/interfaces.h"
 #include "ui/instances.h"
 #include "core/state.h"
 #include "helpers/format.h"
@@ -24,21 +24,9 @@ namespace {
         oled.clearDisplay();
         oled.setCursor(0, 0);
 
-        navbar::paint({
-            .clock = String(msToClock(millis())),
-            .alert = {.blink = true},
-            .ap = {.blink = true},
-            .wifi = {.blink = false},
-            .bat = {.blink = state.system.battery < 20}
-        });
-
-        // Render View Page
         state.display.activeView->paint();
-
-        btmbar::paint({
-            .txtL = state.display.content.btmbarTxtL,
-            .txtR = state.display.content.btmbarTxtR
-        });
+        navbar.paint();
+        btmbar.paint();
         
         oled.display();         
     }
