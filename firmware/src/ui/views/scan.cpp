@@ -1,4 +1,4 @@
-#include "ui/views.h"
+#include "ui/instances.h"
 #include "core/state.h"
 
 ScanView scanView;

@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 
-#include "core/state/view.h"
+#include "ui/interfaces.h"
 
 #define SSD_WIDTH 128
 #define SSD_HEIGHT 64

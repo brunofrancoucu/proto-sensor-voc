@@ -36,8 +36,4 @@ namespace dashboard {
     void paint();
 }
 
-// Atom Components (Stat)
-
-void paintStatBox(const unsigned char* icon, const String& txt, int x, int y);
-
 #endif

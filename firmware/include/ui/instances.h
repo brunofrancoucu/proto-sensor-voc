@@ -2,7 +2,8 @@
 #define SCREENS_H
 
 #include <Arduino.h>
-#include "core/state/view.h"
+#include "ui/interfaces.h"
+
 
 // Macro to declare a view class and its instance
 #define DECLARE_VIEW(ClassName, viewName) \

@@ -1,4 +1,4 @@
-#include "ui/views.h"
+#include "ui/instances.h"
 // Navigation menu
 #include "core/state.h"
 
