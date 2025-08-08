@@ -8,7 +8,7 @@ static const unsigned char PROGMEM image_display_brightness_bits[] = {0x00,0x03,
 
 BrightnessView brightnessView;
 
-auto brghtPct = memo([](int b) {return map(b, 0, 255, 0, 100);});
+auto brghtPct = memo([](uint8_t b) {return map(b, 0, 255, 0, 100);});
 
 void BrightnessView::paint() {
     paintSetting(image_display_brightness_bits, String(brghtPct.get(state.system.brightness)) + " %");
