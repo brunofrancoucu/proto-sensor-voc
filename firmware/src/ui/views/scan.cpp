@@ -12,10 +12,7 @@ void ScanView::paint() {
 void ScanView::onInput(Button& button) {
     if (button.pin == state.input.pins.RGT) {
         // RGT();
-        // state.scan.isRunning = !state.scan.isRunning;
-        // state.scan.motorSpeed = state.scan.isRunning ? 1 : 0; // on off, relay
-        // btmbar.content.txtR = state.scan.isRunning ? "Detener" : "Iniciar";
-        state.display.notifications.add(rfidScannedNot);
+        state.display.notifications.add(new RFIDScannedNotf({"RFID Scanned"}));
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);

@@ -17,7 +17,7 @@ public:
     void paint() { for (auto& notification : _notifications) notification->paint(); }
     // Handle input for all notifications
     void onInput(Button& button) { for (auto& notification : _notifications) notification->onInput(button); }
-    void add(std::shared_ptr<Notification> notification) { _notifications.push_back(notification); }
+    void add(Notification* notification) {_notifications.push_back(std::shared_ptr<Notification>(notification));}
     void remove(Notification* notification) {
         auto it = std::remove_if(_notifications.begin(), _notifications.end(),
             [notification](const std::shared_ptr<Notification>& ptr) { return ptr.get() == notification; }
