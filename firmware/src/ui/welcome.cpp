@@ -15,8 +15,3 @@ void WelcomeView::paint () {
     // plant
     oled.drawBitmap(56, 24, image_plant_bits, 16, 16, 1);
 }
-
-void WelcomeView::onInput(Button& button) {
-    // No specific actions needed on entering the welcome view
-    state.display.navTo(&menuView);
-}
