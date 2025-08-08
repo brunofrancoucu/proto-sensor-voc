@@ -6,12 +6,11 @@
 
 // Macros to declare a view class and its instance
 
-#define DECLARE_INTERFACE(ClassName, declName, contentType) \
-    class ClassName : public Interface<contentType> { \
+#define DECLARE_INTERFACE(ClassName, declName, ContentType) \
+    class ClassName : public Interface<ContentType> { \
     public: \
-        contentType content; \
         void paint() override; \
-        ClassName(contentType content) : content(content) {} \
+        ClassName(ContentType content) : Interface<ContentType>(content) {} \
     }; \
     extern ClassName declName; \
 
@@ -26,7 +25,6 @@
 #define DECLARE_VIEW(ClassName, declName) \
     class ClassName : public View { \
     public: \
-        ClassName() {} \
         ClassName(const String& label, const unsigned char* icon) \
             : View(label, icon) {} \
         void paint() override; \

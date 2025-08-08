@@ -19,34 +19,34 @@ static int focusedId = 0;
 void moveCursor(int direction, int maxOptions = 5) {
     focusedId = (focusedId + direction + maxOptions) % maxOptions;
     // Update navigation bar text
-    btmbar.content.txtL = views[(focusedId + views.size() - 1) % (views.size())]->label;
-    btmbar.content.txtR = views[(focusedId + views.size() + 1) % (views.size())]->label;
+    btmbar.content.txtL = views[(focusedId + views.size() - 1) % (views.size())]->content.label;
+    btmbar.content.txtR = views[(focusedId + views.size() + 1) % (views.size())]->content.label;
 }
 
 void MenuView::paint() {
     // Selected
     int16_t x1, y1;
     uint16_t w, h;
-    oled.getTextBounds(views[focusedId]->label, 0, 0, &x1, &y1, &w, &h);
+    oled.getTextBounds(views[focusedId]->content.label, 0, 0, &x1, &y1, &w, &h);
     // Draw
     const uint8_t gap = 8;
     const uint8_t pdg = 8;
     const uint8_t rectWidth = 16 + w + gap + pdg*2; // txt + gap + padding
     oled.drawRoundRect((SSD_WIDTH - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, views[focusedId]->icon, 16, 16, 1);
+    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, views[focusedId]->content.icon, 16, 16, 1);
     oled.setCursor((SSD_WIDTH - rectWidth)/2 + 16 + gap + pdg, 27); // 64/2 - 8/2
-    oled.print(views[focusedId]->label);
+    oled.print(views[focusedId]->content.label);
     
     // Icons Left
     for (size_t i = 0; i < views.size(); ++i) {
         int posX = SSD_WIDTH / 2 - rectWidth / 2 - i * (16 + 10) - 8 - 16;
-        oled.drawBitmap(posX, 23, views[(focusedId - i - 1 + views.size()) % views.size()]->icon, 16, 16, 1);
+        oled.drawBitmap(posX, 23, views[(focusedId - i - 1 + views.size()) % views.size()]->content.icon, 16, 16, 1);
     }
     
     // Icons Right
     for (size_t i = 0; i < views.size(); ++i) {
         int posX = SSD_WIDTH / 2 + rectWidth / 2 + i * (16 + 10) + 8;
-        oled.drawBitmap(posX, 23, views[(focusedId + i + 1) % views.size()]->icon, 16, 16, 1);
+        oled.drawBitmap(posX, 23, views[(focusedId + i + 1) % views.size()]->content.icon, 16, 16, 1);
     }
 }
 
