@@ -33,11 +33,13 @@ class View : public Interface<> {
 public:
     String label;
     const unsigned char* icon;
-    
+
     View() : label(""), icon(nullptr) {}  // Default constructor
     View(const String& viewLabel, const unsigned char* viewIcon)  // ✅ Parameterized constructor
     : label(viewLabel), icon(viewIcon) {}
     
+    // Optional Enter method
+
     virtual void onInput(Button& button) = 0;
     virtual ~View() {}
 };
