@@ -4,7 +4,7 @@
 #include "core/state/display.h"
 
 void Notification::update() {
-    timeLeft = String((duration_ms - (millis() - created_ms)) / 1000);
+    timeLeft = String(1 + (duration_ms - (millis() - created_ms)) / 1000);
     if (millis() - created_ms >= duration_ms) state.display.notifications.remove(this);
 }
 
