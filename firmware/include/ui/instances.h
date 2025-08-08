@@ -33,6 +33,15 @@
     }; \
     extern ClassName declName; \
     
+#define DECLARE_NOTIFICATION(ClassName, declName) \
+    class ClassName : public Notification { \
+    public: \
+        ClassName(const NotContent& content) : Notification(content) {} \
+        void paint() override; \
+        void onInput(Button& button) override; \
+    }; \
+    extern ClassName declName;
+
 // Declarations instances of interfaces
 
 DECLARE_SIMPLE_INTERFACE(WelcomeView, welcomeView)
@@ -51,6 +60,9 @@ struct BtmBarConfig {
 
 DECLARE_SIMPLE_INTERFACE(NavBar, navbar)
 DECLARE_INTERFACE(BtmBar, btmbar, BtmBarConfig)
+// Notifications
+DECLARE_NOTIFICATION(RFIDScannedNot, rfidScannedNot)
+
 
 #undef DECLARE_INTERFACE
 #undef DECLARE_VIEW

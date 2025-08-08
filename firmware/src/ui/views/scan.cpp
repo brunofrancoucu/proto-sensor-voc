@@ -15,6 +15,7 @@ void ScanView::onInput(Button& button) {
         // state.scan.isRunning = !state.scan.isRunning;
         // state.scan.motorSpeed = state.scan.isRunning ? 1 : 0; // on off, relay
         // btmbar.content.txtR = state.scan.isRunning ? "Detener" : "Iniciar";
+        state.display.addNotification(std::make_shared<RFIDScannedNot>(rfidScannedNot));
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);

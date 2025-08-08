@@ -18,7 +18,13 @@ namespace {
         // Handle button presses for each Button
         for (Button& button : state.input.buttons) {
             button.onPress([&]() {
-                state.display.activeView->onInput(button);
+                auto nots = state.display.notifications.lock();
+                if (nots && !nots->empty()) {
+                    // Override view input
+                    (*nots)[0]->onInput(button);
+                } else {
+                    state.display.activeView->onInput(button);
+                }
             });
         }
     }

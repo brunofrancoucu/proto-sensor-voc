@@ -1,8 +1,7 @@
 #ifndef STATE_INPUT_H
 #define STATE_INPUT_H
 #include <Arduino.h>
-#include "hmi/buttons.h"
-#include "core/state/input.h"
+#include "hmi/buttons.h" // ButtonPins
 #include <vector>
 
 // Constants for long press detection and repeat interval
