@@ -23,11 +23,11 @@ namespace {
         oled.clearDisplay();
         oled.setCursor(0, 0);
 
-        state.display.notifications.paint();
         state.display.activeView->paint();
         navbar.paint();
         btmbar.paint();
-
+        state.display.notifications.paint();
+        
         oled.display();
     }
 }
