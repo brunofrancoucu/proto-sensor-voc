@@ -17,6 +17,8 @@ void HotspotView::onInput(Button& button) {
     if (button.pin == state.input.pins.RGT) {
         // RGT();
         // Notification (Info, actions)
+        // if connected (popup (hotspot ssid pwd))
+        // else (popup (Conectando a web.ssid...), como conectar?)
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);
@@ -26,5 +28,5 @@ void HotspotView::onInput(Button& button) {
 void HotspotView::enter() {
     // Reset hotspot state if needed
     btmbar.content.txtL = "Volver";
-    btmbar.content.txtR = "Desconectar"; // Conectar
+    btmbar.content.txtR = "WiFi";
 }
