@@ -22,12 +22,11 @@ namespace {
     {
         oled.clearDisplay();
         oled.setCursor(0, 0);
-        auto nots = state.display.notifications.lock();
-        
+
+        state.display.notifications.paint();
         state.display.activeView->paint();
         navbar.paint();
         btmbar.paint();
-        for (auto& n : *nots) n->paint();
 
         oled.display();
     }

@@ -4,7 +4,8 @@
 #include <vector>
 #include <memory>
 
-RFIDScannedNot rfidScannedNot({ "RFID Scanned"});
+// Not dangling pointer (never deleted)
+std::shared_ptr<RFIDScannedNot> rfidScannedNot = std::make_shared<RFIDScannedNot>(NotContent{"RFID Scanned"});
 
 auto& oled = state.display.oled;
 
@@ -18,7 +19,7 @@ void RFIDScannedNot::onInput(Button& button) {
     // Handle button input for the notification
     if (button.pin == state.input.pins.MID) {
         // Remove the notification on MID button press
-        selfRemove();
+        state.display.notifications.remove(this);
     } else if (button.pin == state.input.pins.LFT || button.pin == state.input.pins.RGT) {
         // Optionally handle LFT or RGT button presses
         // For example, you could log or display a message

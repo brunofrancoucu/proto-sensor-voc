@@ -40,7 +40,7 @@
         void paint() override; \
         void onInput(Button& button) override; \
     }; \
-    extern ClassName declName;
+    extern std::shared_ptr<ClassName> declName;
 
 // Declarations instances of interfaces
 

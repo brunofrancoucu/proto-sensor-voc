@@ -9,13 +9,31 @@
 #define SSD_WIDTH 128
 #define SSD_HEIGHT 64
 
+/** @brief Centralizes all notifications management displayed on the screen */
+class NotificationManager {
+public:
+    size_t size() const { return _notifications.size(); }
+    // Handle all
+    void paint() { for (auto& notification : _notifications) notification->paint(); }
+    // Handle input for all notifications
+    void onInput(Button& button) { for (auto& notification : _notifications) notification->onInput(button); }
+    void add(std::shared_ptr<Notification> notification) { _notifications.push_back(notification); }
+    void remove(Notification* notification) {
+        auto it = std::remove_if(_notifications.begin(), _notifications.end(),
+            [notification](const std::shared_ptr<Notification>& ptr) { return ptr.get() == notification; }
+        );
+        if (it != _notifications.end()) _notifications.erase(it, _notifications.end());
+    }
+private:
+    std::vector<std::shared_ptr<Notification>> _notifications; // dangling pointers
+};
+
 /** @brief Components state, can be changed within UI (contents) */
 struct UIState {
     // Initializes (same reference at aliases)
     Adafruit_SSD1306 oled{SSD_WIDTH, SSD_HEIGHT, &Wire, -1};
     // erase-remove idiom (single pass)
-    std::vector<Notification*> notifications;
-    std::weak_ptr<std::vector<std::shared_ptr<Notification>>> notifications = std::make_shared<std::vector<std::shared_ptr<Notification>>>();
+    NotificationManager notifications = NotificationManager();
     View* activeView;
 
     // Enter dashboard, view nav
@@ -32,15 +50,6 @@ struct UIState {
         oled.ssd1306_command(SSD1306_SETCONTRAST);
         oled.ssd1306_command(value);
     }
-
-    // void addNotification(std::shared_ptr<Notification> notification) {
-    //     if (auto nots = notifications.lock()) {
-    //         nots->push_back(notification);
-            
-    //         // Set the self-container reference for self-removal
-    //         notification->selfContainer = nots;
-    //     }
-    // }
 };
 
 #endif // STATE_DISPLAY_H

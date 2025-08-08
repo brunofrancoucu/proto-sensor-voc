@@ -56,18 +56,5 @@ struct NotContent { String msg; };
 class Notification : public Interface<NotContent> {
 public:
     Notification(const NotContent& content) : Interface<NotContent>({content}) {}
-    // weak_ptr temporarily upgraded .lock(), avoid circular ref
-    std::weak_ptr<std::vector<std::shared_ptr<Notification>>> selfContainer;    
-    // (const tightly coupled, self pointer, iterator invalidations)
-    // self-managed (avoid manager class)
-    void selfRemove() {
-        if (auto container = selfContainer.lock()) {
-            // Remove this notification from the container
-            container->erase(std::remove_if(container->begin(), container->end(),
-                [this](const std::shared_ptr<Notification>& notification) {
-                    return notification.get() == this;
-                }), container->end());
-        }
-    }
     virtual void onInput(Button& button) = 0;
 };
