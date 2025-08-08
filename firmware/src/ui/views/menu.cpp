@@ -33,7 +33,7 @@ void MenuView::paint() {
     const uint8_t pdg = 8;
     const uint8_t rectWidth = 16 + w + gap + pdg*2; // txt + gap + padding
     oled.drawRoundRect((SSD_WIDTH - rectWidth)/2, 19, rectWidth, 24, 7, 1); // h: 24 => 64/2 - h/2
-    // oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, views[focusedId]->icon, 16, 16, 1);
+    oled.drawBitmap((SSD_WIDTH - rectWidth)/2 + pdg, 23, views[focusedId]->icon, 16, 16, 1);
     oled.setCursor((SSD_WIDTH - rectWidth)/2 + 16 + gap + pdg, 27); // 64/2 - 8/2
     oled.print(views[focusedId]->label);
     
