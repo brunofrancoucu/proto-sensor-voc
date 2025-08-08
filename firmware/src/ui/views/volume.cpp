@@ -44,3 +44,8 @@ void VolumeView::onInput(Button& button) {
         }
     }
 }
+
+void VolumeView::enter() {
+    btmbar.content.txtL = "Bajar";
+    btmbar.content.txtR = "Subir";
+}

@@ -30,6 +30,7 @@
         ClassName(const String& label, const unsigned char* icon) \
             : View(label, icon) {} \
         void paint() override; \
+        void enter() override; \
         void onInput(Button& button) override; \
     }; \
     extern ClassName declName; \

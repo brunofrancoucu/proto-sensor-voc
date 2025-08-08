@@ -62,3 +62,7 @@ void MenuView::onInput(Button& button) {
         moveCursor(1);
     }
 }
+
+void MenuView::enter() {
+    moveCursor(0); // Update btmbar labels
+}

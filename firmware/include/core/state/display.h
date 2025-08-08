@@ -17,6 +17,7 @@ struct UIState {
 
     // Enter dashboard
     void navTo(View* view) {
+        view->enter();
         activeView = view;
     }
     

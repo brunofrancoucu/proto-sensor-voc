@@ -31,3 +31,8 @@ void BrightnessView::onInput(Button& button) {
 
     state.display.setBrightness(state.system.brightness);
 }
+
+void BrightnessView::enter() {
+    btmbar.content.txtL = "Bajar";
+    btmbar.content.txtR = "Subir";
+}

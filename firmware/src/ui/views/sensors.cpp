@@ -19,6 +19,18 @@ void SensorsView::paint() {
 }
 
 void SensorsView::onInput(Button& button) {
-    // No specific actions needed on entering the sensors view
-    state.display.navTo(&menuView);
+    if (button.pin == state.input.pins.RGT) {
+        // RGT();
+        // state.scan.isRunning = !state.scan.isRunning;
+        // state.scan.motorSpeed = state.scan.isRunning ? 1 : 0; // on off, relay
+        // btmbar.content.txtR = state.scan.isRunning ? "Detener" : "Iniciar";
+    } else {
+        // No action for LFT/MID
+        state.display.navTo(&menuView);
+    }
+}
+
+void SensorsView::enter() {
+    btmbar.content.txtL = "Volver";
+    btmbar.content.txtR = "Iniciar";
 }

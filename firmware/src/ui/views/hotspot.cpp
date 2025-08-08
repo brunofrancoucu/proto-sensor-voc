@@ -14,6 +14,17 @@ void HotspotView::paint() {
 }
 
 void HotspotView::onInput(Button& button) {
-    // No specific actions needed on entering the hotspot view
-    state.display.navTo(&menuView);
+    if (button.pin == state.input.pins.RGT) {
+        // RGT();
+        // Notification (Info, actions)
+    } else {
+        // No action for LFT/MID
+        state.display.navTo(&menuView);
+    }
+}
+
+void HotspotView::enter() {
+    // Reset hotspot state if needed
+    btmbar.content.txtL = "Volver";
+    btmbar.content.txtR = "Desconectar"; // Conectar
 }
