@@ -4,7 +4,6 @@
 #include "ui/interfaces.h"
 #include "ui/instances.h"
 #include "core/state.h"
-#include "helpers/format.h"
 
 static auto& oled = state.display.oled;
 

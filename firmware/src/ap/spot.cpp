@@ -6,6 +6,7 @@
 // Internal
 #include "core/state.h"
 #include "ap/routes.h"
+#include "helpers/format.h"
 
 namespace {
   WebServer server(80);
@@ -40,6 +41,7 @@ namespace {
   
   void cycle()
   {
+    state.system.clock = msToClock(millis());
     dns.processNextRequest();
     server.handleClient();
   }
