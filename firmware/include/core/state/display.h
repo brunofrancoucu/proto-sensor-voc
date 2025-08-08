@@ -18,12 +18,7 @@ public:
     // Handle input for all notifications
     void onInput(Button& button) { for (auto& notification : _notifications) notification->onInput(button); }
     void add(Notification* notification) {_notifications.push_back(std::shared_ptr<Notification>(notification));}
-    void remove(Notification* notification) {
-        auto it = std::remove_if(_notifications.begin(), _notifications.end(),
-            [notification](const std::shared_ptr<Notification>& ptr) { return ptr.get() == notification; }
-        );
-        if (it != _notifications.end()) _notifications.erase(it, _notifications.end());
-    }
+    void remove(Notification* notification);
 private:
     std::vector<std::shared_ptr<Notification>> _notifications; // dangling pointers
 };
