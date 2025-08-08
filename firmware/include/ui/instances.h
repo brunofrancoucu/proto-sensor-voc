@@ -36,7 +36,8 @@
 #define DECLARE_NOTIFICATION(ClassName) \
     class ClassName : public Notification { \
     public: \
-        ClassName(const NotContent& content) : Notification(content) {} \
+        ClassName(const NotContent& content, std::vector<String> labels) \
+        : Notification(content, labels) {} \
         void paint() override; \
         void onInput(Button& button) override; \
     }; \

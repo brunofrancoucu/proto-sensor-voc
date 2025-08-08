@@ -55,6 +55,19 @@ struct NotContent { String msg; };
  */
 class Notification : public Interface<NotContent> {
 public:
-    Notification(const NotContent& content) : Interface<NotContent>({content}) {}
+    Notification(const NotContent& content, std::vector<String> labels) 
+    : Interface<NotContent>({content}), btnLabels(labels) { 
+        created_ms = millis();
+        moveCursor(0);
+     }
     virtual void onInput(Button& button) = 0;
+    uint16_t duration_ms = 4000; // ms
+    uint16_t created_ms; // Constructor initialized
+    String timeLeft;
+    int focusedBtn = 0; // Focused Btn
+    std::vector<String> btnLabels = {"Ok"}; // Btns
+    // Update button labels with remaining time self remove
+    void update();
+    /** @brief Move menu nav cursor left/right */
+    void moveCursor(int direction);
 };

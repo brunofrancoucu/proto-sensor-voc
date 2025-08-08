@@ -14,7 +14,7 @@ class NotificationManager {
 public:
     size_t size() const { return _notifications.size(); }
     // Handle all
-    void paint() { for (auto& notification : _notifications) notification->paint(); }
+    void paint() { for (auto& notification : _notifications) notification->paint(), notification->update(); }
     // Handle input for all notifications
     void onInput(Button& button) { for (auto& notification : _notifications) notification->onInput(button); }
     void add(Notification* notification) {_notifications.push_back(std::shared_ptr<Notification>(notification));}

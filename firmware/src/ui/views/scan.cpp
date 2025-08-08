@@ -12,7 +12,7 @@ void ScanView::paint() {
 void ScanView::onInput(Button& button) {
     if (button.pin == state.input.pins.RGT) {
         // RGT();
-        state.display.notifications.add(new RFIDScannedNotf({"RFID Scanned"}));
+        state.display.notifications.add(new RFIDScannedNotf({"RFID Scanned"}, {"Ok", "Cancelar"}));
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);
