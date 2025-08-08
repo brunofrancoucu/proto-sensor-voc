@@ -5,16 +5,17 @@
 #include <Adafruit_GFX.h>
 // Internal
 #include "core/state.h"
-// Input (sensors, actuators, rfid)
+#include "actuators/relay.h"
+// Input (sensors, rfid)
 #include "ap/spot.h"
-#include "hmi/actuators.h"
 #include "hmi/sensors.h"
 #include "hmi/rfid.h"
 #include "hmi/buttons.h"
+// Output user
+#include "hmi/buzzer.h"
+#include "hmi/leds.h"
 // Output (user control)
 #include "ui/display.h"
-#include "ui/buzzer.h"
-#include "ui/leds.h"
 
 AppState state;
 

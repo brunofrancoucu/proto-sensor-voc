@@ -1,4 +1,4 @@
-#include "ui/leds.h"
+#include "hmi/leds.h"
 #include "core/state.h"
 
 namespace {

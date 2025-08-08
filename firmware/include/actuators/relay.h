@@ -1,5 +1,5 @@
-#ifndef ACTUATORS_H
-#define ACTUATORS_H
+#ifndef RELAY_H
+#define RELAY_H
 
 #include "core/cycle.h"
 

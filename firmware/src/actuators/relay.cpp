@@ -1,4 +1,4 @@
-#include "hmi/actuators.h"
+#include "actuators/relay.h"
 #include <DHT.h>
 
 namespace {

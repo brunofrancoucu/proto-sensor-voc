@@ -1,4 +1,4 @@
-#include "ui/buzzer.h"
+#include "hmi/buzzer.h"
 #include "core/state.h"
 
 void playTone(int freq, int duration)
@@ -11,8 +11,7 @@ void playTone(int freq, int duration)
 }
 
 namespace {
-    void initSetup(BuzzerPins pins)
-    {
+    void initSetup(BuzzerPins pins) {
         state.system.volume = pins.VOL;            // TODO: Init from mem flash
     
         // Initialize the buzzer pin
@@ -27,8 +26,7 @@ namespace {
         playTone(784, 150); // G5 (sol)
     }
     
-    void cycle()
-    {
+    void cycle() {
     }
 }
 

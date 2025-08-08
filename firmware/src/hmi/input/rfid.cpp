@@ -2,7 +2,7 @@
 #include <SPI.h>
 #include <MFRC522.h>
 // Internal
-#include "ui/buzzer.h"
+#include "hmi/buzzer.h"
 #include "helpers/format.h"
 
 namespace {
