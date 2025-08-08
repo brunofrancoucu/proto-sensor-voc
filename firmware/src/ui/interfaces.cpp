@@ -5,8 +5,8 @@
 void Notification::update() {
     timeLeft = String((duration_ms - (millis() - created_ms)) / 1000);
     if (millis() - created_ms >= duration_ms) {
-        state.display.notifications.remove(this);
         state.display.activeView->enter(); // Re-enter active view
+        state.display.notifications.remove(this);
     }
 }
 

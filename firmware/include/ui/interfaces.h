@@ -61,8 +61,8 @@ public:
         moveCursor(0);
      }
     virtual void onInput(Button& button) = 0;
-    uint16_t duration_ms = 4000; // ms
-    uint16_t created_ms; // Constructor initialized
+    int duration_ms = 4000; // ms
+    int created_ms; // Constructor initialized
     String timeLeft;
     int focusedBtn = 0; // Focused Btn
     std::vector<String> btnLabels = {"Ok"}; // Btns
