@@ -11,9 +11,6 @@ NavBar navbar;
 
 static auto& oled = state.display.oled;
 
-// Icon blinks
-static Blink alert, ap, wifi, bat;
-
 void NavBar::paint() {
     // Layer 1
     oled.setCursor(50, 1);
@@ -22,11 +19,11 @@ void NavBar::paint() {
     oled.drawLine(0, 9, 128, 9, 1);
 
     // Battery
-    blinkIf(state.system.battery < 20, bat, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
+    blinkIf(state.system.battery < 20, [&](){ oled.drawBitmap(115, -4, image_Battery_bits, 16, 16, 1);}, 200);
     // Alert
-    blinkIf(true, alert, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
+    blinkIf(true, [&](){ oled.drawBitmap(0, 0, image_Alert_bits, 9, 8, 1); }, 0);
     // BLE_beacon
-    blinkIf(true, wifi, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); }, 300);
+    blinkIf(true, [&](){ oled.drawBitmap(106, 0, image_BLE_beacon_bits, 7, 8, 1); }, 300);
     // Rpc_active
-    blinkIf(false, ap, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); }, 400);
+    blinkIf(false, [&](){ oled.drawBitmap(94, 0, image_Rpc_active_bits, 7, 8, 1); }, 400);
 }

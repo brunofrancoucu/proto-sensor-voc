@@ -1,12 +1,11 @@
 #include "ui/instances.h"
 #include "core/state.h"
 #include "ui/atomic.h"
-#include "helpers/oled.h"
 
 #include <vector>
 #include <memory>
 
-auto& oled = state.display.oled;
+static auto& oled = state.display.oled;
 
 void RFIDScannedNotf::paint() {
     paintNotfBox("Tag RFID Escaneado", content.msg);
