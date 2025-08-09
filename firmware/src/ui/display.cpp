@@ -16,6 +16,7 @@ namespace {
         oled.display();
         // Initialize variables & mem
         state.display.activeView = &menuView;
+        state.display.activeView->enter();
     }
     
     void cycle()
