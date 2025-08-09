@@ -4,6 +4,17 @@
 // Internal
 #include "hmi/buzzer.h"
 #include "helpers/format.h"
+#include "ui/instances.h"
+#include "core/state.h"
+
+int uidToDec(MFRC522* mfrcid) {
+    uint32_t rfidDecValue = 0;
+    // Convert first 4 bytes to single integer
+    for (byte i = 0; i < 4 && i < mfrcid->uid.size; i++) {
+        rfidDecValue = (rfidDecValue << 8) | mfrcid->uid.uidByte[i];
+    }
+    return (int)rfidDecValue;
+}
 
 namespace {
   MFRC522* mfrcid = nullptr;
@@ -62,7 +73,11 @@ namespace {
       playTone(1000, 100); // Play a 1000 Hz tone for 100ms
     }
     else Serial.println(F("Card read previously."));
-  
+
+    int rfidDec = uidToDec(mfrcid);
+    
+    state.display.notifications.add(new TagRead({"Lectura en: " + String(rfidDec)}, {"Si", "No"}));
+
     // Halt PICC
     mfrcid->PICC_HaltA();
   
