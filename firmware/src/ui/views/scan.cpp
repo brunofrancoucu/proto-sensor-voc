@@ -10,10 +10,8 @@ ScanView scanView("Medir", image_weather_windsock_bits);
 static auto& oled = state.display.oled;
 
 void ScanView::paint() {
-    // none
     blinkIf(true, [&](){paintStatBox(image_weather_wind_bits, "--- -s", 8, 16);}, -100);
     blinkIf(false, [&](){paintStatBox(image_weather_windsock_bits, "--- -s", 8, 16 + 14 + 4);}, -100);
-
     // Graph
     oled.drawLine(78, 16, 78, 48, 1);
     oled.drawLine(122, 46, 76, 46, 1);
@@ -22,7 +20,7 @@ void ScanView::paint() {
 void ScanView::onInput(Button& button) {
     if (button.pin == state.input.pins.RGT) {
         // RGT();
-        state.display.notifications.add(new RFIDScannedNotf({"Iniciar medicion?"}, {"Si", "No"}));
+        state.display.notifications.add(new NewScanNotf({}, {"Si", "No"}));
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);

@@ -36,8 +36,8 @@
 #define DECLARE_NOTIFICATION(ClassName) \
     class ClassName : public Notification { \
     public: \
-        ClassName(const NotContent& content, std::vector<String> labels) \
-        : Notification(content, labels) {} \
+        ClassName(const NotContent& content, std::vector<String> labels, int dur_ms = 4000) \
+        : Notification(content, labels, dur_ms) {} \
         void paint() override; \
         void onInput(Button& button) override; \
     }; \
@@ -62,6 +62,9 @@ DECLARE_SIMPLE_INTERFACE(NavBar, navbar)
 DECLARE_INTERFACE(BtmBar, btmbar, BtmBarConfig)
 // Notifications
 DECLARE_NOTIFICATION(RFIDScannedNotf)
+DECLARE_NOTIFICATION(NewScanNotf)
+DECLARE_NOTIFICATION(SpotInfoNotf)
+DECLARE_NOTIFICATION(SpotDetailsNotf)
 
 
 #undef DECLARE_INTERFACE

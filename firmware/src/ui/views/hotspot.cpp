@@ -19,9 +19,7 @@ void HotspotView::paint() {
 void HotspotView::onInput(Button& button) {
     if (button.pin == state.input.pins.RGT) {
         // RGT();
-        // Notification (Info, actions)
-        // if connected (popup (hotspot ssid pwd))
-        // else (popup (Conectando a web.ssid...), como conectar?)
+        state.display.notifications.add(new SpotInfoNotf({}, {"Volver"}, 60 * 1000));
     } else {
         // No action for LFT/MID
         state.display.navTo(&menuView);
@@ -29,7 +27,6 @@ void HotspotView::onInput(Button& button) {
 }
 
 void HotspotView::enter() {
-    // Reset hotspot state if needed
     btmbar.content.txtL = "Volver";
     btmbar.content.txtR = "WiFi";
 }

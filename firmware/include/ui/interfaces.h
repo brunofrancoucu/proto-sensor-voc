@@ -55,8 +55,8 @@ struct NotContent { String msg; };
  */
 class Notification : public Interface<NotContent> {
 public:
-    Notification(const NotContent& content, std::vector<String> labels) 
-    : Interface<NotContent>({content}), btnLabels(labels) { 
+    Notification(const NotContent& content, std::vector<String> labels, int duration_ms = 4000) 
+    : Interface<NotContent>({content}), btnLabels(labels), duration_ms(duration_ms) { 
         created_ms = millis();
         moveCursor(0);
      }
